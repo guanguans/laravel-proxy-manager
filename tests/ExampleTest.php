@@ -10,12 +10,10 @@
 
 namespace Guanguans\LaravelProxyManagerTests;
 
-use Guanguans\LaravelProxyManager\PackageSkeleton;
-
-final class PackageSkeletonTest extends TestCase
+final class ExampleTest extends TestCase
 {
-    public function testTest()
+    public function testTrue()
     {
-        $this->assertTrue(PackageSkeleton::test());
+        $this->assertTrue(true);
     }
 }

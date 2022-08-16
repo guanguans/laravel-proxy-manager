@@ -19,6 +19,7 @@ EOF;
 $finder = PhpCsFixer\Finder::create()
     ->in([
         __DIR__ . '/benchmarks',
+        __DIR__ . '/config',
         __DIR__ . '/src',
         __DIR__ . '/tests',
     ])

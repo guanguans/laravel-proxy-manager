@@ -10,6 +10,17 @@
 
 namespace Guanguans\LaravelProxyManager;
 
+use Illuminate\Contracts\Container\Container;
+use ProxyManager\Configuration;
+use ProxyManager\Factory\AccessInterceptorScopeLocalizerFactory;
+use ProxyManager\Factory\AccessInterceptorValueHolderFactory;
+use ProxyManager\Factory\LazyLoadingGhostFactory;
+use ProxyManager\Factory\LazyLoadingValueHolderFactory;
+use ProxyManager\Factory\NullObjectFactory;
+use ProxyManager\Factory\RemoteObjectFactory;
+use ProxyManager\FileLocator\FileLocator;
+use ProxyManager\FileLocator\FileLocatorInterface;
+use RuntimeException;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -20,5 +31,36 @@ class ProxyManagerServiceProvider extends PackageServiceProvider
         $package
             ->name('laravel-proxy-manager')
             ->hasConfigFile();
+    }
+
+    public function packageRegistered()
+    {
+        $this->app->bind(FileLocatorInterface::class, function (Container $container) {
+            if (
+                ! file_exists(config('proxy-manager.proxies_dir'))
+                && ! mkdir($concurrentDirectory = config('proxy-manager.proxies_dir'), 0755, true)
+                && ! is_dir($concurrentDirectory)
+            ) {
+                throw new RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
+            }
+
+            return new FileLocator(config('proxy-manager.proxies_dir'));
+        });
+
+        $this->app->singleton(Configuration::class, function (Container $container) {
+            $configuration = new Configuration();
+            $configuration->setGeneratorStrategy($container->make(config('proxy-manager.generator_strategy_class')));
+            $configuration->setProxiesTargetDir(config('proxy-manager.proxies_dir'));
+            spl_autoload_register($configuration->getProxyAutoloader());
+
+            return $configuration;
+        });
+
+        $this->app->singleton(AccessInterceptorScopeLocalizerFactory::class);
+        $this->app->singleton(AccessInterceptorValueHolderFactory::class);
+        $this->app->singleton(LazyLoadingGhostFactory::class);
+        $this->app->singleton(LazyLoadingValueHolderFactory::class);
+        $this->app->singleton(NullObjectFactory::class);
+        $this->app->singleton(RemoteObjectFactory::class);
     }
 }

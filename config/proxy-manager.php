@@ -9,4 +9,7 @@
  */
 
 return [
+    'proxies_dir' => env('PROXY_MANAGER_PROXIES_DIR', storage_path('app/proxies')),
+
+    'generator_strategy_class' => env('PROXY_MANAGER_GENERATOR_STRATEGY_CLASS', \ProxyManager\GeneratorStrategy\FileWriterGeneratorStrategy::class),
 ];

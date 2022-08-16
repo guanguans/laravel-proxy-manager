@@ -35,6 +35,8 @@
     ],
     "require": {
         "php": ">=7.4",
+        "illuminate/support": "^7.0 || ^8.0 || ^9.0",
+        "ocramius/proxy-manager": "^2.13",
         "spatie/laravel-package-tools": "^1.12"
     },
     "require-dev": {
@@ -104,6 +106,19 @@
                 "composer test"
             ]
         },
+        "laravel": {
+            "aliases": {
+                "AccessInterceptorScopeLocalizerFactory": "Guanguans\\LaravelProxyManager\\Facades\\AccessInterceptorScopeLocalizerFactory",
+                "AccessInterceptorValueHolderFactory": "Guanguans\\LaravelProxyManager\\Facades\\AccessInterceptorValueHolderFactory",
+                "LazyLoadingGhostFactory": "Guanguans\\LaravelProxyManager\\Facades\\LazyLoadingGhostFactory",
+                "LazyLoadingValueHolderFactory": "Guanguans\\LaravelProxyManager\\Facades\\LazyLoadingValueHolderFactory",
+                "NullObjectFactory": "Guanguans\\LaravelProxyManager\\Facades\\NullObjectFactory",
+                "RemoteObjectFactory": "Guanguans\\LaravelProxyManager\\Facades\\RemoteObjectFactory"
+            },
+            "providers": [
+                "Guanguans\\LaravelProxyManager\\ProxyManagerServiceProvider"
+            ]
+        },
         "update-helper": "Guanguans\\LaravelProxyManager\\UpdateHelper"
     },
     "scripts": {
@@ -124,7 +139,6 @@
         "changelog-major": "./vendor/bin/conventional-changelog --major",
         "changelog-minor": "./vendor/bin/conventional-changelog --minor",
         "changelog-patch": "./vendor/bin/conventional-changelog --patch",
-        "doctum": "./vendor/bin/doctum.php update doctum.php",
         "md-fix": "lint-md --config .lintmdrc --fix ./*.md ./.github/ ./docs/",
         "md-lint": "lint-md --config .lintmdrc ./*.md ./.github/ ./docs/",
         "paratest": "./vendor/bin/paratest -p4 --runner=WrapperRunner --coverage-text=coverage/coverage.text ./tests/ --verbose",

@@ -12,6 +12,11 @@ namespace Guanguans\LaravelProxyManager\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
+/**
+ * @method static \ProxyManager\Proxy\NullObjectInterface createProxy($instanceOrClassName)
+ *
+ * @see \ProxyManager\Factory\NullObjectFactory
+ */
 class NullObjectFactory extends Facade
 {
     protected static function getFacadeAccessor()

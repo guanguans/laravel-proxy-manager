@@ -37,20 +37,20 @@ class ProxyManagerServiceProvider extends PackageServiceProvider
     {
         $this->app->bind(FileLocatorInterface::class, function (Container $container) {
             if (
-                ! file_exists(config('proxy-manager.proxies_dir'))
-                && ! mkdir($concurrentDirectory = config('proxy-manager.proxies_dir'), 0755, true)
+                ! file_exists(config('proxy-manager.generated_proxies_dir'))
+                && ! mkdir($concurrentDirectory = config('proxy-manager.generated_proxies_dir'), config('proxy-manager.generated_proxies_dir_mode'), true)
                 && ! is_dir($concurrentDirectory)
             ) {
                 throw new RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
             }
 
-            return new FileLocator(config('proxy-manager.proxies_dir'));
+            return new FileLocator(config('proxy-manager.generated_proxies_dir'));
         });
 
         $this->app->singleton(Configuration::class, function (Container $container) {
             $configuration = new Configuration();
             $configuration->setGeneratorStrategy($container->make(config('proxy-manager.generator_strategy_class')));
-            $configuration->setProxiesTargetDir(config('proxy-manager.proxies_dir'));
+            $configuration->setProxiesTargetDir(config('proxy-manager.generated_proxies_dir'));
             spl_autoload_register($configuration->getProxyAutoloader());
 
             return $configuration;

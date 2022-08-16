@@ -1,4 +1,4 @@
-# package-skeleton
+# laravel-proxy-manager
 
 [简体中文](README-zh_CN.md) | [ENGLISH](README.md)
 
@@ -10,13 +10,13 @@
 [![Latest Stable Version](https://poser.pugx.org/guanguans/laravel-proxy-manager/v)](//packagist.org/packages/guanguans/laravel-proxy-manager)
 [![Total Downloads](https://poser.pugx.org/guanguans/laravel-proxy-manager/downloads)](//packagist.org/packages/guanguans/laravel-proxy-manager)
 [![License](https://poser.pugx.org/guanguans/laravel-proxy-manager/license)](//packagist.org/packages/guanguans/laravel-proxy-manager)
-[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/guanguans/laravel-proxy-manager)
 ![GitHub repo size](https://img.shields.io/github/repo-size/guanguans/laravel-proxy-manager)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/guanguans/laravel-proxy-manager)
 
 ## 环境要求
 
 * PHP >= 7.4
+* Laravel >= 7.0
 
 ## 安装
 
@@ -25,6 +25,22 @@ $ composer require guanguans/laravel-proxy-manager --prefer-dist -vvv
 ```
 
 ## 使用
+
+```php
+use Guanguans\LaravelProxyManager\Facades\AccessInterceptorScopeLocalizerFactory;
+use Guanguans\LaravelProxyManager\Facades\AccessInterceptorValueHolderFactory;
+use Guanguans\LaravelProxyManager\Facades\LazyLoadingGhostFactory;
+use Guanguans\LaravelProxyManager\Facades\LazyLoadingValueHolderFactory;
+use Guanguans\LaravelProxyManager\Facades\NullObjectFactory;
+use Guanguans\LaravelProxyManager\Facades\RemoteObjectFactory;
+
+AccessInterceptorScopeLocalizerFactory::createProxy($instance, $prefixInterceptors, $suffixInterceptors);
+AccessInterceptorValueHolderFactory::createProxy($instance, $prefixInterceptors, $suffixInterceptors);
+LazyLoadingGhostFactory::createProxy($className, $initializer, $proxyOptions);
+LazyLoadingValueHolderFactory::createProxy($className, $initializer, $proxyOptions);
+NullObjectFactory::createProxy($instanceOrClassName);
+RemoteObjectFactory::createProxy($instanceOrClassName);
+```
 
 ## 测试
 

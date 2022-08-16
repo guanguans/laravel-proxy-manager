@@ -12,6 +12,11 @@ namespace Guanguans\LaravelProxyManager\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
+/**
+ * @method static \ProxyManager\Proxy\RemoteObjectInterface createProxy($instanceOrClassName)
+ *
+ * @see \ProxyManager\Factory\RemoteObjectFactory
+ */
 class RemoteObjectFactory extends Facade
 {
     protected static function getFacadeAccessor()

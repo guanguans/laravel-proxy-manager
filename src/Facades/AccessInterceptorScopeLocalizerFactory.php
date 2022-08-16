@@ -12,6 +12,11 @@ namespace Guanguans\LaravelProxyManager\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
+/**
+ * @method static \ProxyManager\Proxy\AccessInterceptorInterface createProxy(object $instance, array $prefixInterceptors = [], array $suffixInterceptors = [])
+ *
+ * @see \ProxyManager\Factory\AccessInterceptorScopeLocalizerFactory
+ */
 class AccessInterceptorScopeLocalizerFactory extends Facade
 {
     protected static function getFacadeAccessor()

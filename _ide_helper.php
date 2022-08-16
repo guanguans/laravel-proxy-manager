@@ -10,4 +10,27 @@
 
 namespace {
 
+    class AccessInterceptorScopeLocalizerFactory extends \Guanguans\LaravelProxyManager\Facades\AccessInterceptorScopeLocalizerFactory
+    {
+    }
+
+    class AccessInterceptorValueHolderFactory extends \Guanguans\LaravelProxyManager\Facades\AccessInterceptorValueHolderFactory
+    {
+    }
+
+    class LazyLoadingGhostFactory extends \Guanguans\LaravelProxyManager\Facades\LazyLoadingGhostFactory
+    {
+    }
+
+    class LazyLoadingValueHolderFactory extends \Guanguans\LaravelProxyManager\Facades\LazyLoadingValueHolderFactory
+    {
+    }
+
+    class NullObjectFactory extends \Guanguans\LaravelProxyManager\Facades\NullObjectFactory
+    {
+    }
+
+    class RemoteObjectFactory extends \Guanguans\LaravelProxyManager\Facades\RemoteObjectFactory
+    {
+    }
 }

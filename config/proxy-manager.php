@@ -8,12 +8,5 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Guanguans\LaravelProxyManager;
-
-class PackageSkeleton
-{
-    public static function test(): bool
-    {
-        return true;
-    }
-}
+return [
+];

@@ -10,10 +10,10 @@
 
 namespace Guanguans\LaravelProxyManagerTests\TestClasses;
 
-class ValueHolderTestClass
+class LazyLoadingValueHolderTestClass extends ValueHolderTestClass
 {
-    public function execute(): string
+    public function __construct(int $sleepSeconds = 0)
     {
-        return __FUNCTION__;
+        sleep($sleepSeconds);
     }
 }

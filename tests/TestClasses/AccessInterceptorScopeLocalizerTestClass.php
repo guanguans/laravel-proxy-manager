@@ -10,10 +10,14 @@
 
 namespace Guanguans\LaravelProxyManagerTests\TestClasses;
 
-class ValueHolderTestClass
+class AccessInterceptorScopeLocalizerTestClass extends ValueHolderTestClass
 {
-    public function execute(): string
+    public $counter = 0;
+
+    public function fluentMethod(): self
     {
-        return __FUNCTION__;
+        ++$this->counter;
+
+        return $this;
     }
 }

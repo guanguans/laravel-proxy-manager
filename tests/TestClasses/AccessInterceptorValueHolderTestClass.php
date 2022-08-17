@@ -10,10 +10,6 @@
 
 namespace Guanguans\LaravelProxyManagerTests\TestClasses;
 
-class ValueHolderTestClass
+class AccessInterceptorValueHolderTestClass extends ValueHolderTestClass
 {
-    public function execute(): string
-    {
-        return __FUNCTION__;
-    }
 }

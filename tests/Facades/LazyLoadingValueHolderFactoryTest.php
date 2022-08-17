@@ -9,7 +9,7 @@
  */
 
 use Guanguans\LaravelProxyManager\Facades\LazyLoadingValueHolderFactory;
-use Guanguans\LaravelProxyManagerTests\TestClasses\LazyLoadingValueHolderTestTestClass;
+use Guanguans\LaravelProxyManagerTests\TestClasses\LazyLoadingValueHolderTestClass;
 use Guanguans\LaravelProxyManagerTests\TestClasses\ValueHolderTestClass;
 use SebastianBergmann\Timer\Timer;
 
@@ -24,7 +24,7 @@ it('The return value is the same as the return value of the source class method.
             }
         );
 
-    expect($proxy->doMethod())->toEqual((new ValueHolderTestClass())->doMethod());
+    expect($proxy->execute())->toEqual((new ValueHolderTestClass())->execute());
 });
 
 it('The class is actually initialized when the proxy class calls the method', function () {
@@ -35,18 +35,18 @@ it('The class is actually initialized when the proxy class calls the method', fu
 
     $sleepSeconds = 1;
     $proxy = LazyLoadingValueHolderFactory::createProxy(
-        LazyLoadingValueHolderTestTestClass::class,
+        LazyLoadingValueHolderTestClass::class,
         function (?object &$wrappedObject, ?object $proxy, string $method, array $parameters, ?Closure &$initializer) use ($sleepSeconds) {
             $initializer = null;
-            $wrappedObject = new LazyLoadingValueHolderTestTestClass($sleepSeconds);
+            $wrappedObject = new LazyLoadingValueHolderTestClass($sleepSeconds);
 
             return true;
         }
     );
 
     expect($timer->stop()->asSeconds())->toBeLessThan($sleepSeconds);
-    $proxy->doMethod();
+    $proxy->execute();
     expect($timer->stop()->asSeconds())->toBeGreaterThan($sleepSeconds);
-    $proxy->doMethod();
+    $proxy->execute();
     expect($timer->stop()->asSeconds())->toBeGreaterThan($sleepSeconds)->toBeLessThan(2 * $sleepSeconds);
 });

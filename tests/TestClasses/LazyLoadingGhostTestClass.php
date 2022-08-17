@@ -10,10 +10,19 @@
 
 namespace Guanguans\LaravelProxyManagerTests\TestClasses;
 
-class ValueHolderTestClass
+class LazyLoadingGhostTestClass extends ValueHolderTestClass
 {
-    public function execute(): string
+    private $id;
+
+    private $name;
+
+    public function getId()
     {
-        return __FUNCTION__;
+        return $this->id;
+    }
+
+    public function getName()
+    {
+        return $this->name;
     }
 }

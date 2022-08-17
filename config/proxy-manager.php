@@ -17,7 +17,7 @@ return [
     /*
      * The proxy manager will use this mode to create the proxy directory.
      */
-    'generated_proxies_dir_mode' => env('PROXY_MANAGER_GENERATED_PROXIES_DIR_MODE', 0666),
+    'generated_proxies_dir_mode' => env('PROXY_MANAGER_GENERATED_PROXIES_DIR_MODE', 0755),
 
     /*
      * The proxy manager will use this strategy to generate proxies.

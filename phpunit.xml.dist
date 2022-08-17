@@ -20,7 +20,8 @@
         </include>
         <exclude>
             <directory>src/Facades</directory>
-            <file>src/Skeleton.php</file>
+            <file>src/ProxyManagerServiceProvider.php</file>
+            <file>src/UpdateHelper.php</file>
         </exclude>
     </coverage>
     <testsuites>

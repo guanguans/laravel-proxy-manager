@@ -9,63 +9,44 @@
  */
 
 use Guanguans\LaravelProxyManager\Facades\LazyLoadingValueHolderFactory;
+use Guanguans\LaravelProxyManagerTests\TestClasses\LazyLoadingValueHolderTestTestClass;
+use Guanguans\LaravelProxyManagerTests\TestClasses\ValueHolderTestClass;
 use SebastianBergmann\Timer\Timer;
 
 it('The return value is the same as the return value of the source class method.', function () {
-    class Foo
-    {
-        public function __construct()
-        {
-        }
-
-        public function doFoo(): string
-        {
-            return 'Foo';
-        }
-    }
-
     $proxy = LazyLoadingValueHolderFactory::createProxy(
-            Foo::class,
+            ValueHolderTestClass::class,
             function (?object &$wrappedObject, ?object $proxy, string $method, array $parameters, ?Closure &$initializer) {
                 $initializer = null;
-                $wrappedObject = new Foo();
+                $wrappedObject = new ValueHolderTestClass();
 
                 return true;
             }
         );
 
-    expect($proxy->doFoo())->toEqual((new Foo())->doFoo());
+    expect($proxy->doMethod())->toEqual((new ValueHolderTestClass())->doMethod());
 });
 
 it('The class is actually initialized when the proxy class calls the method', function () {
-    class Bar
-    {
-        public function __construct()
-        {
-            sleep(1);
-        }
-
-        public function doBar(): string
-        {
-            return 'Bar';
-        }
-    }
-
     $timer = new Timer();
     $timer->start();
     $timer->start();
+    $timer->start();
 
+    $sleepSeconds = 1;
     $proxy = LazyLoadingValueHolderFactory::createProxy(
-        Bar::class,
-        function (?object &$wrappedObject, ?object $proxy, string $method, array $parameters, ?Closure &$initializer) {
+        LazyLoadingValueHolderTestTestClass::class,
+        function (?object &$wrappedObject, ?object $proxy, string $method, array $parameters, ?Closure &$initializer) use ($sleepSeconds) {
             $initializer = null;
-            $wrappedObject = new Bar();
+            $wrappedObject = new LazyLoadingValueHolderTestTestClass($sleepSeconds);
 
             return true;
         }
     );
 
-    expect($timer->stop()->asSeconds())->toBeLessThan(1);
-    $proxy->doBar();
-    expect($timer->stop()->asSeconds())->toBeGreaterThan(1);
+    expect($timer->stop()->asSeconds())->toBeLessThan($sleepSeconds);
+    $proxy->doMethod();
+    expect($timer->stop()->asSeconds())->toBeGreaterThan($sleepSeconds);
+    $proxy->doMethod();
+    expect($timer->stop()->asSeconds())->toBeGreaterThan($sleepSeconds)->toBeLessThan(2 * $sleepSeconds);
 });

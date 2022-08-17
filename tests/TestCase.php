@@ -11,8 +11,9 @@
 namespace Guanguans\LaravelProxyManagerTests;
 
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
+use Guanguans\LaravelProxyManager\ProxyManagerServiceProvider;
 
-class TestCase extends \PHPUnit\Framework\TestCase
+class TestCase extends \Orchestra\Testbench\TestCase
 {
     use ArraySubsetAsserts;
 
@@ -33,15 +34,17 @@ class TestCase extends \PHPUnit\Framework\TestCase
     /**
      * This method is called before each test.
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
+        parent::setUp();
+
         // \DG\BypassFinals::enable();
     }
 
     /**
      * This method is called after each test.
      */
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->finish();
         \Mockery::close();
@@ -53,5 +56,16 @@ class TestCase extends \PHPUnit\Framework\TestCase
     protected function finish()
     {
         // call more tear down methods
+    }
+
+    protected function getPackageProviders($app)
+    {
+        return [
+            ProxyManagerServiceProvider::class,
+        ];
+    }
+
+    public function getEnvironmentSetUp($app)
+    {
     }
 }

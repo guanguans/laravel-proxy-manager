@@ -9,9 +9,18 @@
  */
 
 return [
+    /*
+     * The proxy manager will use this directory to store generated proxies.
+     */
     'generated_proxies_dir' => env('PROXY_MANAGER_GENERATED_PROXIES_DIR', storage_path('app/proxies')),
 
+    /*
+     * The proxy manager will use this mode to create the proxy directory.
+     */
     'generated_proxies_dir_mode' => env('PROXY_MANAGER_GENERATED_PROXIES_DIR_MODE', 0666),
 
+    /*
+     * The proxy manager will use this strategy to generate proxies.
+     */
     'generator_strategy_class' => env('PROXY_MANAGER_GENERATOR_STRATEGY_CLASS', \ProxyManager\GeneratorStrategy\FileWriterGeneratorStrategy::class),
 ];

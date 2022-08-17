@@ -74,9 +74,7 @@
         "psr-4": {
             "Guanguans\\LaravelProxyManager\\": "src"
         },
-        "classmap": [
-            "update-helper.php"
-        ],
+        "classmap": [],
         "files": [],
         "exclude-from-classmap": [
             "benchmarks"
@@ -124,7 +122,7 @@
                 "Guanguans\\LaravelProxyManager\\ProxyManagerServiceProvider"
             ]
         },
-        "update-helper": "GuanguansLaravelProxyManagerUpdateHelper"
+        "update-helper": "Guanguans\\LaravelProxyManager\\UpdateHelper"
     },
     "scripts": {
         "post-install-cmd": [

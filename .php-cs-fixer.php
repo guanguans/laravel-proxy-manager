@@ -24,7 +24,6 @@ $finder = PhpCsFixer\Finder::create()
     ])
     ->append([
         __DIR__.'/.php-cs-fixer.php',
-        __DIR__.'/update-helper.php',
     ])
     ->exclude([
         '.github/',

@@ -26,6 +26,8 @@ $ composer require guanguans/laravel-proxy-manager --prefer-dist -vvv
 
 ## Usage
 
+[**example**](./tests/Facades)
+
 ```php
 use Guanguans\LaravelProxyManager\Facades\AccessInterceptorScopeLocalizerFactory;
 use Guanguans\LaravelProxyManager\Facades\AccessInterceptorValueHolderFactory;

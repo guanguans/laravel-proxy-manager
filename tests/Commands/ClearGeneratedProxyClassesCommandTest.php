@@ -9,6 +9,7 @@
  */
 
 use Guanguans\LaravelProxyManager\Commands\ClearGeneratedProxyClassesCommand;
+
 use function Pest\Laravel\artisan;
 
 it('thrown no exceptions with proxy classes deleted', function () {

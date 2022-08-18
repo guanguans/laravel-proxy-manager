@@ -26,14 +26,18 @@ use Symfony\Component\Finder\SplFileInfo;
 
 class ListGeneratedProxyClassesCommand extends Command
 {
-    protected $signature = 'proxy:list';
+    protected $signature = 'proxy:list
+                            {--m|parse-mode=1 : The mode(1,2,3,4) to use for the PHP parser}
+                            {--M|memory-limit= : The memory limit to use for the PHP parser}';
 
     protected $description = 'List generated proxy classes.';
 
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
+        $this->option('memory-limit') and ini_set('memory_limit', $this->option('memory-limit'));
+
         $this->laravel->bind(Parser::class, function () {
-            return (new ParserFactory())->create(ParserFactory::PREFER_PHP7);
+            return (new ParserFactory())->create((int) $this->option('parse-mode'));
         });
     }
 
@@ -94,7 +98,7 @@ class ListGeneratedProxyClassesCommand extends Command
                 return $proxyInfo;
             })
             ->whenEmpty(function (Collection $proxyInfos) {
-                $this->info('No generated proxy classes found.');
+                $this->warn('No generated proxy classes found.');
 
                 return $proxyInfos;
             })

@@ -11,6 +11,7 @@
 namespace Guanguans\LaravelProxyManager;
 
 use Guanguans\LaravelProxyManager\Commands\ClearGeneratedProxyClassesCommand;
+use Guanguans\LaravelProxyManager\Commands\ListGeneratedProxyClassesCommand;
 use Illuminate\Contracts\Container\Container;
 use ProxyManager\Configuration;
 use ProxyManager\Factory\AccessInterceptorScopeLocalizerFactory;
@@ -34,6 +35,7 @@ class ProxyManagerServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasCommands([
                 ClearGeneratedProxyClassesCommand::class,
+                ListGeneratedProxyClassesCommand::class,
             ]);
     }
 

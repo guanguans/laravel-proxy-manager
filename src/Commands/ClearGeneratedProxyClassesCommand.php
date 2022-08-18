@@ -22,14 +22,14 @@ class ClearGeneratedProxyClassesCommand extends Command
 
     public function handle(): int
     {
-        if (! file_exists(config('proxy-manager.generated_proxies_dir'))) {
-            $this->info('Proxy classes directory not found.');
+        if (! file_exists($proxiesDir = config('proxy-manager.generated_proxies_dir'))) {
+            $this->warn('Proxy classes directory not found.');
 
             return static::SUCCESS;
         }
 
         $fileInfos = Finder::create()
-            ->in(config('proxy-manager.generated_proxies_dir'))
+            ->in($proxiesDir)
             ->files()
             ->name('*.php')
             ->ignoreDotFiles(true)

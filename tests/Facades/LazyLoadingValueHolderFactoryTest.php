@@ -15,14 +15,14 @@ use SebastianBergmann\Timer\Timer;
 
 it('The return value is the same as the return value of the source class method.', function () {
     $proxy = LazyLoadingValueHolderFactory::createProxy(
-            ValueHolderTestClass::class,
-            function (?object &$wrappedObject, ?object $proxy, string $method, array $parameters, ?Closure &$initializer) {
-                $initializer = null;
-                $wrappedObject = new ValueHolderTestClass();
+        ValueHolderTestClass::class,
+        function (?object &$wrappedObject, ?object $proxy, string $method, array $parameters, ?Closure &$initializer) {
+            $initializer = null;
+            $wrappedObject = new ValueHolderTestClass();
 
-                return true;
-            }
-        );
+            return true;
+        }
+    );
 
     expect($proxy->execute())->toEqual((new ValueHolderTestClass())->execute());
 });

@@ -19,7 +19,6 @@ use ProxyManager\Factory\AccessInterceptorValueHolderFactory;
 use ProxyManager\Factory\LazyLoadingGhostFactory;
 use ProxyManager\Factory\LazyLoadingValueHolderFactory;
 use ProxyManager\Factory\NullObjectFactory;
-use ProxyManager\Factory\RemoteObjectFactory;
 use ProxyManager\FileLocator\FileLocator;
 use ProxyManager\FileLocator\FileLocatorInterface;
 use RuntimeException;

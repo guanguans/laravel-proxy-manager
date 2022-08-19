@@ -14,13 +14,16 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static \ProxyManager\Proxy\RemoteObjectInterface createProxy($instanceOrClassName)
+ * @method static \Guanguans\LaravelProxyManager\RemoteObjectFactory setAdapter(\ProxyManager\Factory\RemoteObject\AdapterInterface $adapter)
  *
- * @see \ProxyManager\Factory\RemoteObjectFactory
+ * @mixin \Guanguans\LaravelProxyManager\RemoteObjectFactory
+ *
+ * @see \Guanguans\LaravelProxyManager\RemoteObjectFactory
  */
 class RemoteObjectFactory extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \ProxyManager\Factory\RemoteObjectFactory::class;
+        return \Guanguans\LaravelProxyManager\RemoteObjectFactory::class;
     }
 }

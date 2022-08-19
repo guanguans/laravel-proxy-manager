@@ -41,7 +41,7 @@ AccessInterceptorValueHolderFactory::createProxy($instance, $prefixInterceptors,
 LazyLoadingGhostFactory::createProxy($className, $initializer, $proxyOptions);
 LazyLoadingValueHolderFactory::createProxy($className, $initializer, $proxyOptions);
 NullObjectFactory::createProxy($instanceOrClassName);
-RemoteObjectFactory::createProxy($instanceOrClassName);
+RemoteObjectFactory::setAdapter($adapter)->createProxy($instanceOrClassName);
 ```
 
 ## 测试

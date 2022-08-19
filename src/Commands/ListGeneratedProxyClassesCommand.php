@@ -21,8 +21,6 @@ use PhpParser\Parser;
 use PhpParser\ParserFactory;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
 
 class ListGeneratedProxyClassesCommand extends Command
 {
@@ -34,6 +32,12 @@ class ListGeneratedProxyClassesCommand extends Command
 
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
+        if (! class_exists('PhpParser\ParserFactory')) {
+            $this->error('The "nikic/php-parser" package is required to use this command.');
+            $this->error('You can install it with "composer require nikic/php-parser".');
+            exit(static::INVALID);
+        }
+
         $this->option('memory-limit') and ini_set('memory_limit', $this->option('memory-limit'));
 
         $this->laravel->bind(Parser::class, function () {
@@ -49,22 +53,17 @@ class ListGeneratedProxyClassesCommand extends Command
             return static::SUCCESS;
         }
 
-        $fileInfos = Finder::create()
-            ->in($proxiesDir)
-            ->files()
-            ->name('*.php')
-            ->ignoreDotFiles(true)
-            ->ignoreVCS(true)
-            ->ignoreUnreadableDirs();
-
-        collect($fileInfos)
-            ->transform(function (SplFileInfo $fileInfo) use ($parser, $nodeFinder) {
+        collect(glob(Str::of($proxiesDir)->finish('/')->append('*.php')))
+            ->transform(function (string $file) use ($parser, $nodeFinder) {
                 $proxyInfos = [];
+                if (! file_exists($file) || ! is_file($file) || ! is_readable($file)) {
+                    return $proxyInfos;
+                }
 
                 try {
-                    $nodes = $parser->parse($fileInfo->getContents());
+                    $nodes = $parser->parse(file_get_contents($file));
                 } catch (Error $e) {
-                    $this->error(sprintf('The file of %s parse error: %s.', $fileInfo->getRealPath(), $e->getMessage()));
+                    $this->error(sprintf('The file of %s parse error: %s.', $file, $e->getMessage()));
 
                     return $proxyInfos;
                 }

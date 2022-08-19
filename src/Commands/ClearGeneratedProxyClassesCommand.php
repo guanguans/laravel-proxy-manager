@@ -11,8 +11,7 @@
 namespace Guanguans\LaravelProxyManager\Commands;
 
 use Illuminate\Console\Command;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
+use Illuminate\Support\Str;
 
 class ClearGeneratedProxyClassesCommand extends Command
 {
@@ -28,20 +27,12 @@ class ClearGeneratedProxyClassesCommand extends Command
             return static::SUCCESS;
         }
 
-        $fileInfos = Finder::create()
-            ->in($proxiesDir)
-            ->files()
-            ->name('*.php')
-            ->ignoreDotFiles(true)
-            ->ignoreVCS(true)
-            ->ignoreUnreadableDirs();
-
-        $this->info(sprintf('Found %d generated proxy classes', $fileInfos->count()));
+        $files = glob(Str::of($proxiesDir)->finish('/')->append('*.php'));
+        $this->info(sprintf('Found %d generated proxy classes', count($files)));
         $this->info('Clearing generated proxy classes...');
 
-        foreach ($fileInfos as $fileInfo) {
-            /* @var SplFileInfo $fileInfo */
-            $fileInfo->isWritable() ? unlink($fileInfo->getRealPath()) : $this->warn("{$fileInfo->getRealPath()} is not writable");
+        foreach ($files as $file) {
+            is_writable($file) ? unlink($file) : $this->warn("The $file is not writable");
         }
 
         $this->info('Generated proxy classes have been cleared');

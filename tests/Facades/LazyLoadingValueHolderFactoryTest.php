@@ -8,12 +8,15 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
+namespace Guanguans\LaravelProxyManagerTests\Facades;
+
+use Closure;
 use Guanguans\LaravelProxyManager\Facades\LazyLoadingValueHolderFactory;
 use Guanguans\LaravelProxyManagerTests\TestClasses\LazyLoadingValueHolderTestClass;
 use Guanguans\LaravelProxyManagerTests\TestClasses\ValueHolderTestClass;
 use SebastianBergmann\Timer\Timer;
 
-it('The return value is the same as the return value of the source class method.', function () {
+it('the return value is the same as the return value of the source class method', function () {
     $proxy = LazyLoadingValueHolderFactory::createProxy(
         ValueHolderTestClass::class,
         function (?object &$wrappedObject, ?object $proxy, string $method, array $parameters, ?Closure &$initializer) {
@@ -27,7 +30,7 @@ it('The return value is the same as the return value of the source class method.
     expect($proxy->execute())->toEqual((new ValueHolderTestClass())->execute());
 });
 
-it('The class is actually initialized when the proxy class calls the method', function () {
+it('the class is actually initialized when the proxy class calls the method', function () {
     $timer = new Timer();
     $timer->start();
     $timer->start();

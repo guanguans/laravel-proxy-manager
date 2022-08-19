@@ -8,10 +8,12 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
+namespace Guanguans\LaravelProxyManagerTests\Facades;
+
 use Guanguans\LaravelProxyManager\Facades\NullObjectFactory;
 use Guanguans\LaravelProxyManagerTests\TestClasses\NullObjectTestClass;
 
-it('Should return a proxy empty instance.', function () {
+it('should return a proxy empty instance.', function () {
     $proxy = NullObjectFactory::createProxy(NullObjectTestClass::class);
     expect($proxy)
         ->toBeInstanceOf(NullObjectTestClass::class)

@@ -8,6 +8,8 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
+namespace Guanguans\LaravelProxyManagerTests\Commands;
+
 use Guanguans\LaravelProxyManager\Commands\ClearGeneratedProxyClassesCommand;
 use Illuminate\Support\Str;
 

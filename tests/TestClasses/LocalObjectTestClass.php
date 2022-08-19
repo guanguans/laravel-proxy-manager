@@ -10,15 +10,14 @@
 
 namespace Guanguans\LaravelProxyManagerTests\TestClasses;
 
-class LocalObjectTestClass extends ValueHolderTestClass
+abstract class LocalObjectTestClass extends ValueHolderTestClass
 {
-    public function execute(): string
+    public function book($id)
     {
-        return __METHOD__;
+        return [
+            'detail' => "Local book #$id",
+        ];
     }
 
-    public function bar(): string
-    {
-        return __METHOD__;
-    }
+    abstract public function author($id);
 }

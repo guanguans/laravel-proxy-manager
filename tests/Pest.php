@@ -8,7 +8,7 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
-use Guanguans\LaravelProxyManagerTests\TestCase;
+namespace Guanguans\LaravelProxyManagerTests;
 
 uses(TestCase::class)
     ->beforeEach(function () {

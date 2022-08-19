@@ -8,6 +8,8 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
+namespace Guanguans\LaravelProxyManagerTests\Facades;
+
 use Guanguans\LaravelProxyManager\Facades\AccessInterceptorScopeLocalizerFactory;
 use Guanguans\LaravelProxyManagerTests\TestClasses\AccessInterceptorScopeLocalizerTestClass;
 use ProxyManager\Proxy\AccessInterceptorInterface;
@@ -20,7 +22,7 @@ afterEach(function () {
     ob_clean();
 });
 
-it("An access interceptor scope localizer is a smart reference proxy that allows you to dynamically define logic to be executed before or after any of the proxied object methods' logic.", function () {
+it("an access interceptor scope localizer is a smart reference proxy that allows you to dynamically define logic to be executed before or after any of the proxied object methods' logic", function () {
     $accessInterceptorScopeLocalizer = new AccessInterceptorScopeLocalizerTestClass();
 
     $proxy = AccessInterceptorScopeLocalizerFactory::createProxy(

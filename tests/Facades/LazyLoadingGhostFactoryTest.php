@@ -8,11 +8,13 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
+namespace Guanguans\LaravelProxyManagerTests\Facades;
+
 use Guanguans\LaravelProxyManager\Facades\LazyLoadingGhostFactory;
 use Guanguans\LaravelProxyManagerTests\TestClasses\LazyLoadingGhostTestClass;
 use ProxyManager\Proxy\GhostObjectInterface;
 
-it("The property doesn't actually exist until the ghost object is initialized.", function () {
+it("the property doesn't actually exist until the ghost object is initialized", function () {
     $id = 1;
     $name = 'name';
 

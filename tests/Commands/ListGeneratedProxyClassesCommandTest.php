@@ -8,6 +8,8 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
+namespace Guanguans\LaravelProxyManagerTests\Commands;
+
 use Guanguans\LaravelProxyManager\Commands\ListGeneratedProxyClassesCommand;
 use Guanguans\LaravelProxyManager\Facades\NullObjectFactory;
 use Guanguans\LaravelProxyManagerTests\TestClasses\NullObjectTestClass;
@@ -41,7 +43,7 @@ it('no generated proxy classes found', function () {
 
 it('list generated proxy class infos', function () {
     config([
-        'proxy-manager.generated_proxies_dir' => $proxiesDir = __DIR__.DIRECTORY_SEPARATOR
+        'proxy-manager.generated_proxies_dir' => __DIR__.DIRECTORY_SEPARATOR
                                                  .'..'.DIRECTORY_SEPARATOR
                                                  .'stub'.DIRECTORY_SEPARATOR
                                                  .'proxies',

@@ -8,28 +8,30 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
+namespace Guanguans\LaravelProxyManagerTests\Facades;
+
+use Guanguans\LaravelProxyManager\Facades\RemoteObjectFactory;
 use Guanguans\LaravelProxyManagerTests\TestClasses\LocalObjectTestClass;
-use Laminas\XmlRpc\Client;
-use ProxyManager\Factory\RemoteObject\Adapter\XmlRpc;
-use ProxyManager\Factory\RemoteObjectFactory;
+use Guanguans\LaravelProxyManagerTests\TestClasses\RemoteObjectTestClass;
+use ProxyManager\Factory\RemoteObject\AdapterInterface;
 
-beforeEach(function () {
-    // exec(sprintf('php -S localhost:8765 "%s"', __DIR__.'/../stub/remote-proxy-server.php'));
-});
+it('should execute a proxy remote method', function () {
+    $proxy = RemoteObjectFactory::setAdapter(new class($remoteObjectTestClass = new RemoteObjectTestClass()) implements AdapterInterface {
+        public function __construct(RemoteObjectTestClass $remoteObjectTestClass)
+        {
+            $this->remoteObjectTestClass = $remoteObjectTestClass;
+        }
 
-it('Should execute a proxy remote method.', function () {
-    // try {
-    //     $factory = new RemoteObjectFactory(
-    //         new XmlRpc(new Client('http://localhost:8765/remote-proxy-server.php'))
-    //     );
-    //
-    //     $proxy = $factory->createProxy(LocalObjectTestClass::class);
-    //
-    //     expect($proxy)
-    //         ->toBeInstanceOf(LocalObjectTestClass::class)
-    //         ->and($proxy->execute())
-    //         ->toEqual('execute');
-    // } catch (Throwable $e) {
-    //     dump($e->getFile().':'.$e->getLine().' '.$e->getMessage());
-    // }
+        public function call(string $wrappedClass, string $method, array $params = [])
+        {
+            return $this->remoteObjectTestClass->{$method}(...$params);
+        }
+    })->createProxy(LocalObjectTestClass::class);
+
+    expect($proxy)
+        ->toBeInstanceOf(LocalObjectTestClass::class)
+        ->and($proxy->book($id = 2))
+        ->toEqual($remoteObjectTestClass->book($id))
+        ->and($proxy->author($id))
+        ->toEqual($remoteObjectTestClass->author($id));
 });

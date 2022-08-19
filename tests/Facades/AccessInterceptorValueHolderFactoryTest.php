@@ -8,6 +8,8 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
+namespace Guanguans\LaravelProxyManagerTests\Facades;
+
 use Guanguans\LaravelProxyManager\Facades\AccessInterceptorValueHolderFactory;
 use Guanguans\LaravelProxyManagerTests\TestClasses\AccessInterceptorValueHolderTestClass;
 
@@ -19,7 +21,7 @@ afterEach(function () {
     ob_clean();
 });
 
-it('Add pre-execution and post-execution behavior to a method.', function () {
+it('add pre-execution and post-execution behavior to a method', function () {
     $proxy = AccessInterceptorValueHolderFactory::createProxy(
         new AccessInterceptorValueHolderTestClass(),
         [

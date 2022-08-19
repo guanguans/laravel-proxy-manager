@@ -10,15 +10,15 @@
 
 namespace Guanguans\LaravelProxyManagerTests\TestClasses;
 
-class RemoteObjectTestClass extends ValueHolderTestClass
+class RemoteObjectTestClass extends LocalObjectTestClass
 {
-    public function execute(): string
+    public function book($id)
     {
-        return __METHOD__;
+        return \Pest\Laravel\getJson("/book/$id")->json();
     }
 
-    public function bar(): string
+    public function author($id)
     {
-        return __METHOD__;
+        return \Pest\Laravel\getJson("/author/$id")->json();
     }
 }

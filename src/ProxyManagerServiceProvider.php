@@ -40,7 +40,7 @@ class ProxyManagerServiceProvider extends PackageServiceProvider
 
     public function packageRegistered()
     {
-        $this->app->bind(FileLocatorInterface::class, function (Container $container) {
+        $this->app->bind(FileLocatorInterface::class, function () {
             if (
                 ! file_exists(config('proxy-manager.generated_proxies_dir'))
                 && ! mkdir($concurrentDirectory = config('proxy-manager.generated_proxies_dir'), config('proxy-manager.generated_proxies_dir_mode'), true)

@@ -118,6 +118,7 @@
                 "LazyLoadingGhostFactory": "Guanguans\\LaravelProxyManager\\Facades\\LazyLoadingGhostFactory",
                 "LazyLoadingValueHolderFactory": "Guanguans\\LaravelProxyManager\\Facades\\LazyLoadingValueHolderFactory",
                 "NullObjectFactory": "Guanguans\\LaravelProxyManager\\Facades\\NullObjectFactory",
+                "ProxyManager": "Guanguans\\LaravelProxyManager\\Facades\\ProxyManager",
                 "RemoteObjectFactory": "Guanguans\\LaravelProxyManager\\Facades\\RemoteObjectFactory"
             },
             "providers": [

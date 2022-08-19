@@ -67,5 +67,6 @@ class ProxyManagerServiceProvider extends PackageServiceProvider
         $this->app->singleton(LazyLoadingValueHolderFactory::class);
         $this->app->singleton(NullObjectFactory::class);
         $this->app->singleton(RemoteObjectFactory::class);
+        $this->app->singleton(ProxyManager::class);
     }
 }

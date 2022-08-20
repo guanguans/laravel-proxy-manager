@@ -29,19 +29,14 @@ $ composer require guanguans/laravel-proxy-manager --prefer-dist -vvv
 [**示例**](./tests/Facades)
 
 ```php
-use Guanguans\LaravelProxyManager\Facades\AccessInterceptorScopeLocalizerFactory;
-use Guanguans\LaravelProxyManager\Facades\AccessInterceptorValueHolderFactory;
-use Guanguans\LaravelProxyManager\Facades\LazyLoadingGhostFactory;
-use Guanguans\LaravelProxyManager\Facades\LazyLoadingValueHolderFactory;
-use Guanguans\LaravelProxyManager\Facades\NullObjectFactory;
-use Guanguans\LaravelProxyManager\Facades\RemoteObjectFactory;
+use Guanguans\LaravelProxyManager\Facades\ProxyManager;
 
-AccessInterceptorScopeLocalizerFactory::createProxy($instance, $prefixInterceptors, $suffixInterceptors);
-AccessInterceptorValueHolderFactory::createProxy($instance, $prefixInterceptors, $suffixInterceptors);
-LazyLoadingGhostFactory::createProxy($className, $initializer, $proxyOptions);
-LazyLoadingValueHolderFactory::createProxy($className, $initializer, $proxyOptions);
-NullObjectFactory::createProxy($instanceOrClassName);
-RemoteObjectFactory::setAdapter($adapter)->createProxy($instanceOrClassName);
+ProxyManager::createAccessInterceptorScopeLocalizerProxy($instance, $prefixInterceptors, $suffixInterceptors);
+ProxyManager::createAccessInterceptorValueHolderProxy($instance, $prefixInterceptors, $suffixInterceptors);
+ProxyManager::createLazyLoadingGhostFactoryProxy($className, $initializer, $proxyOptions);
+ProxyManager::createLazyLoadingValueHolderProxy($className, $initializer, $proxyOptions);
+ProxyManager::createNullObjectProxy($instanceOrClassName);
+ProxyManager::createRemoteObjectProxy($instanceOrClassName, $adapter);
 ```
 
 ## 测试

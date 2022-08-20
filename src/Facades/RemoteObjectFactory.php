@@ -13,17 +13,17 @@ namespace Guanguans\LaravelProxyManager\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static \ProxyManager\Proxy\RemoteObjectInterface createProxy($instanceOrClassName)
- * @method static \Guanguans\LaravelProxyManager\RemoteObjectFactory setAdapter(\ProxyManager\Factory\RemoteObject\AdapterInterface $adapter)
+ * @method static \ProxyManager\Proxy\RemoteObjectInterface createProxy($instanceOrClassName, ?\ProxyManager\Factory\RemoteObject\AdapterInterface $adapter = null)
+ * @method static \Guanguans\LaravelProxyManager\Factories\RemoteObjectFactory setAdapter(\ProxyManager\Factory\RemoteObject\AdapterInterface $adapter)
  *
- * @mixin \Guanguans\LaravelProxyManager\RemoteObjectFactory
+ * @mixin \Guanguans\LaravelProxyManager\Factories\RemoteObjectFactory
  *
- * @see \Guanguans\LaravelProxyManager\RemoteObjectFactory
+ * @see \Guanguans\LaravelProxyManager\Factories\RemoteObjectFactory
  */
 class RemoteObjectFactory extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \Guanguans\LaravelProxyManager\RemoteObjectFactory::class;
+        return \Guanguans\LaravelProxyManager\Factories\RemoteObjectFactory::class;
     }
 }

@@ -8,7 +8,7 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Guanguans\LaravelProxyManager;
+namespace Guanguans\LaravelProxyManager\Factories;
 
 use OutOfBoundsException;
 use ProxyManager\Configuration;
@@ -19,6 +19,7 @@ use ProxyManager\ProxyGenerator\ProxyGeneratorInterface;
 use ProxyManager\ProxyGenerator\RemoteObjectGenerator;
 use ProxyManager\Signature\Exception\InvalidSignatureException;
 use ProxyManager\Signature\Exception\MissingSignatureException;
+use RuntimeException;
 
 /**
  * Factory responsible of producing remote proxy objects.
@@ -31,9 +32,6 @@ class RemoteObjectFactory extends AbstractBaseFactory
 
     /**
      * {@inheritDoc}
-     *
-     * @param AdapterInterface $adapter
-     * @param Configuration    $configuration
      */
     public function __construct(?AdapterInterface $adapter = null, ?Configuration $configuration = null)
     {
@@ -49,24 +47,23 @@ class RemoteObjectFactory extends AbstractBaseFactory
      * @throws InvalidSignatureException
      * @throws MissingSignatureException
      * @throws OutOfBoundsException
+     * @throws RuntimeException
      *
      * @psalm-template RealObjectType of object
-     *
      * @psalm-param RealObjectType|class-string<RealObjectType> $instanceOrClassName
-     *
      * @psalm-return RealObjectType&RemoteObjectInterface
-     *
      * @psalm-suppress MixedInferredReturnType We ignore type checks here, since `staticProxyConstructor` is not
      *                                         interfaced (by design)
      */
-    public function createProxy($instanceOrClassName): RemoteObjectInterface
+    public function createProxy($instanceOrClassName, ?AdapterInterface $adapter = null): RemoteObjectInterface
     {
         $proxyClassName = $this->generateProxy(
             is_object($instanceOrClassName) ? get_class($instanceOrClassName) : $instanceOrClassName
         );
 
-        if (! $this->adapter instanceof AdapterInterface) {
-            throw new \RuntimeException('No adapter set');
+        $adapter = $adapter ?: $this->adapter;
+        if (! $adapter instanceof AdapterInterface) {
+            throw new RuntimeException('No adapter set');
         }
 
         /*
@@ -75,7 +72,7 @@ class RemoteObjectFactory extends AbstractBaseFactory
          * @psalm-suppress MixedMethodCall
          * @psalm-suppress MixedReturnStatement
          */
-        return $proxyClassName::staticProxyConstructor($this->adapter);
+        return $proxyClassName::staticProxyConstructor($adapter);
     }
 
     /**

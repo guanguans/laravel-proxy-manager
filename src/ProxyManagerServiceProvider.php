@@ -12,6 +12,7 @@ namespace Guanguans\LaravelProxyManager;
 
 use Guanguans\LaravelProxyManager\Commands\ClearGeneratedProxyClassesCommand;
 use Guanguans\LaravelProxyManager\Commands\ListGeneratedProxyClassesCommand;
+use Guanguans\LaravelProxyManager\Factories\RemoteObjectFactory;
 use Illuminate\Contracts\Container\Container;
 use ProxyManager\Configuration;
 use ProxyManager\Factory\AccessInterceptorScopeLocalizerFactory;

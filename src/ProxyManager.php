@@ -52,8 +52,8 @@ class ProxyManager
         return NullObjectFactory::createProxy($instanceOrClassName);
     }
 
-    public function createRemoteObjectProxy(AdapterInterface $adapter, $instanceOrClassName): RemoteObjectInterface
+    public function createRemoteObjectProxy($instanceOrClassName, ?AdapterInterface $adapter = null): RemoteObjectInterface
     {
-        return RemoteObjectFactory::setAdapter($adapter)->createProxy($instanceOrClassName);
+        return RemoteObjectFactory::createProxy($instanceOrClassName, $adapter);
     }
 }

@@ -17,6 +17,8 @@ use Guanguans\LaravelProxyManagerTests\TestClasses\LazyLoadingGhostTestClass;
 use Guanguans\LaravelProxyManagerTests\TestClasses\LazyLoadingValueHolderTestClass;
 use Guanguans\LaravelProxyManagerTests\TestClasses\LocalObjectTestClass;
 use Guanguans\LaravelProxyManagerTests\TestClasses\NullObjectTestClass;
+use Guanguans\LaravelProxyManagerTests\TestClasses\ValueHolderTestClass;
+use InvalidArgumentException;
 use ProxyManager\Factory\RemoteObject\AdapterInterface;
 use ProxyManager\Proxy\AccessInterceptorInterface;
 use ProxyManager\Proxy\AccessInterceptorValueHolderInterface;
@@ -45,4 +47,36 @@ it('will return instance of `ProxyInterface`', function (ProxyManager $proxyMana
             }
         })
         ->toBeInstanceOf(RemoteObjectInterface::class);
+})->with('proxyManagers');
+
+it('will throw `InvalidArgumentException` for `bindNoopVirtualProxyIf`', function (ProxyManager $proxyManager) {
+    interface Unkown
+    {
+    }
+
+    expect($proxyManager)
+        ->bindNoopVirtualProxyIf('unkown')
+        ->toThrow(InvalidArgumentException::class, 'Target class [unkown] does not exist.')
+        ->bindNoopVirtualProxyIf(Unkown::class)
+        ->toThrow(InvalidArgumentException::class, 'Target [Guanguans\LaravelProxyManagerTests\Unkown] is not instantiable.');
+})->with('proxyManagers')->skip();
+
+it('will not return for `bindNoopVirtualProxyIf`', function (ProxyManager $proxyManager) {
+    expect($proxyManager)
+        ->bindNoopVirtualProxyIf(ValueHolderTestClass::class)
+        ->toBeNull();
+
+    expect(app(ValueHolderTestClass::class))
+        ->toBeInstanceOf(ValueHolderTestClass::class)
+        ->toBeInstanceOf(VirtualProxyInterface::class);
+})->with('proxyManagers');
+
+it('will not return for `singletonNoopVirtualProxyIf`', function (ProxyManager $proxyManager) {
+    expect($proxyManager)
+        ->singletonNoopVirtualProxyIf(ValueHolderTestClass::class)
+        ->toBeNull();
+
+    expect(app(ValueHolderTestClass::class))
+        ->toBeInstanceOf(ValueHolderTestClass::class)
+        ->toBeInstanceOf(VirtualProxyInterface::class);
 })->with('proxyManagers');

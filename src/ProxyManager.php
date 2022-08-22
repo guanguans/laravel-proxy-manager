@@ -17,7 +17,7 @@ use Guanguans\LaravelProxyManager\Facades\LazyLoadingGhostFactory;
 use Guanguans\LaravelProxyManager\Facades\LazyLoadingValueHolderFactory;
 use Guanguans\LaravelProxyManager\Facades\NullObjectFactory;
 use Guanguans\LaravelProxyManager\Facades\RemoteObjectFactory;
-use Illuminate\Contracts\Container\Container;
+use Illuminate\Container\Container;
 use InvalidArgumentException;
 use OutOfBoundsException;
 use ProxyManager\Factory\RemoteObject\AdapterInterface;
@@ -37,7 +37,7 @@ use RuntimeException;
 class ProxyManager
 {
     /**
-     * @var \Illuminate\Contracts\Container\Container
+     * @var \Illuminate\Container\Container
      */
     private $container;
 

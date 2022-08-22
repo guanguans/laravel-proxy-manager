@@ -13,4 +13,21 @@
       <code>Str::of($proxiesDir)-&gt;finish('/')-&gt;append('*.php')</code>
     </ImplicitToStringCast>
   </file>
+  <file src="src/ProxyManager.php">
+    <InvalidReturnType occurrences="5"/>
+    <InvalidReturnStatement occurrences="5">
+      <code>AccessInterceptorScopeLocalizerFactory::createProxy($instance, $prefixInterceptors, $suffixInterceptors)</code>
+      <code>AccessInterceptorValueHolderFactory::createProxy($instance, $prefixInterceptors, $suffixInterceptors)</code>
+      <code>LazyLoadingGhostFactory::createProxy($className, $initializer, $proxyOptions)</code>
+      <code>LazyLoadingValueHolderFactory::createProxy($className, $initializer, $proxyOptions)</code>
+      <code>NullObjectFactory::createProxy($instanceOrClassName)</code>
+    </InvalidReturnStatement>
+    <UnusedClosureParam occurrences="5">
+      <code>$container</code>
+      <code>$method</code>
+      <code>$parameters</code>
+      <code>$parameters</code>
+      <code>$proxy</code>
+    </UnusedClosureParam>
+  </file>
 </files>

@@ -60,7 +60,7 @@ it('will throw `Target [Guanguans\LaravelProxyManagerTests\Unkown] is not instan
 })->throws(InvalidArgumentException::class, 'Target [Guanguans\LaravelProxyManagerTests\Unkown] is not instantiable.');
 
 it('will not return for `bindNoopVirtualProxy`', function () {
-    expect((new ProxyManager(app())))
+    expect(new ProxyManager(app()))
         ->bindNoopVirtualProxy(ValueHolderTestClass::class)
         ->toBeNull();
 
@@ -74,7 +74,7 @@ it('will not return for `bindNoopVirtualProxy`', function () {
 });
 
 it('will not return for `singletonNoopVirtualProxy`', function () {
-    expect((new ProxyManager(app())))
+    expect(new ProxyManager(app()))
         ->singletonNoopVirtualProxy(ValueHolderTestClass::class)
         ->toBeNull();
 

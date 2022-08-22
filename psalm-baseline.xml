@@ -22,10 +22,9 @@
       <code>LazyLoadingValueHolderFactory::createProxy($className, $initializer, $proxyOptions)</code>
       <code>NullObjectFactory::createProxy($instanceOrClassName)</code>
     </InvalidReturnStatement>
-    <UnusedClosureParam occurrences="5">
+    <UnusedClosureParam occurrences="7">
       <code>$container</code>
       <code>$method</code>
-      <code>$parameters</code>
       <code>$parameters</code>
       <code>$proxy</code>
     </UnusedClosureParam>

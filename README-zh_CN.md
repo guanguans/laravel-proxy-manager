@@ -22,6 +22,9 @@
 
 ```bash
 $ composer require guanguans/laravel-proxy-manager --prefer-dist -vvv
+```
+
+```bash
 $ php artisan vendor:publish --provider="Guanguans\\LaravelProxyManager\\ProxyManagerServiceProvider"
 ```
 
@@ -73,8 +76,8 @@ class Foo
     }
 }
 
-// ProxyManager::bindNoopVirtualProxyIf(Foo::class);
-ProxyManager::singletonNoopVirtualProxyIf(Foo::class);
+// ProxyManager::bindNoopVirtualProxy(Foo::class);
+ProxyManager::singletonNoopVirtualProxy(Foo::class);
 
 $formatter = new ResourceUsageFormatter();
 $timer = new Timer();

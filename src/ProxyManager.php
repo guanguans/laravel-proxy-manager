@@ -279,12 +279,12 @@ class ProxyManager
             function () use ($className, $classArgs) {
                 return $this->createLazyLoadingValueHolderProxy(
                     $className,
-                     function (?object &$wrappedObject, ?object $proxy, string $method, array $parameters, ?Closure &$initializer) use ($className, $classArgs) {
-                         $wrappedObject = $this->container->make($className, $classArgs);
-                         $initializer = null;
+                    function (?object &$wrappedObject, ?object $proxy, string $method, array $parameters, ?Closure &$initializer) use ($className, $classArgs) {
+                        $wrappedObject = $this->container->make($className, $classArgs);
+                        $initializer = null;
 
-                         return true;
-                     }
+                        return true;
+                    }
                 );
             },
             $shared

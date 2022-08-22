@@ -13,14 +13,14 @@ namespace Guanguans\LaravelProxyManager\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static \ProxyManager\Proxy\AccessInterceptorInterface createAccessInterceptorScopeLocalizerProxy(object $instance, array $prefixInterceptors = [], array $suffixInterceptors = [])
+ * @method static \ProxyManager\Proxy\AccessInterceptorInterface            createAccessInterceptorScopeLocalizerProxy(object $instance, array $prefixInterceptors = [], array $suffixInterceptors = [])
  * @method static \ProxyManager\Proxy\AccessInterceptorValueHolderInterface createAccessInterceptorValueHolderProxy(object $instance, array $prefixInterceptors = [], array $suffixInterceptors = [])
- * @method static \ProxyManager\Proxy\GhostObjectInterface createLazyLoadingGhostFactoryProxy(string $className, \Closure $initializer, array $proxyOptions = [])
- * @method static \ProxyManager\Proxy\VirtualProxyInterface createLazyLoadingValueHolderProxy(string $className, \Closure $initializer, array $proxyOptions = [])
- * @method static \ProxyManager\Proxy\NullObjectInterface createNullObjectProxy($instanceOrClassName)
- * @method static \ProxyManager\Proxy\RemoteObjectInterface createRemoteObjectProxy($instanceOrClassName, ?\ProxyManager\Factory\RemoteObject\AdapterInterface $adapter = null)
- * @method static void singletonNoopVirtualProxyIf(string $className, array $classArgs = [])
- * @method static void bindNoopVirtualProxyIf(string $className, array $classArgs = [], bool $shared = false)
+ * @method static \ProxyManager\Proxy\GhostObjectInterface                  createLazyLoadingGhostFactoryProxy(string $className, \Closure $initializer, array $proxyOptions = [])
+ * @method static \ProxyManager\Proxy\VirtualProxyInterface                 createLazyLoadingValueHolderProxy(string $className, \Closure $initializer, array $proxyOptions = [])
+ * @method static \ProxyManager\Proxy\NullObjectInterface                   createNullObjectProxy($instanceOrClassName)
+ * @method static \ProxyManager\Proxy\RemoteObjectInterface                 createRemoteObjectProxy($instanceOrClassName, ?\ProxyManager\Factory\RemoteObject\AdapterInterface $adapter = null)
+ * @method static void                                                      singletonNoopVirtualProxyIf(string $className, array $classArgs = [])
+ * @method static void                                                      bindNoopVirtualProxyIf(string $className, array $classArgs = [], bool $shared = false)
  *
  * @mixin \Guanguans\LaravelProxyManager\ProxyManager
  *

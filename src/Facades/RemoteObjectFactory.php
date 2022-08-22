@@ -13,7 +13,7 @@ namespace Guanguans\LaravelProxyManager\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static \ProxyManager\Proxy\RemoteObjectInterface createProxy($instanceOrClassName, ?\ProxyManager\Factory\RemoteObject\AdapterInterface $adapter = null)
+ * @method static \ProxyManager\Proxy\RemoteObjectInterface                    createProxy($instanceOrClassName, ?\ProxyManager\Factory\RemoteObject\AdapterInterface $adapter = null)
  * @method static \Guanguans\LaravelProxyManager\Factories\RemoteObjectFactory setAdapter(\ProxyManager\Factory\RemoteObject\AdapterInterface $adapter)
  *
  * @mixin \Guanguans\LaravelProxyManager\Factories\RemoteObjectFactory

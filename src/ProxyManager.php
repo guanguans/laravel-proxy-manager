@@ -39,7 +39,7 @@ class ProxyManager
     /**
      * @var \Illuminate\Container\Container
      */
-    private $container;
+    protected $container;
 
     public function __construct(Container $container)
     {
@@ -297,6 +297,32 @@ class ProxyManager
             $abstract,
             function ($container, $parameters = []) use ($className, $initializer, $proxyOptions) {
                 return $this->createLazyLoadingValueHolderProxy($className, $initializer, $proxyOptions);
+            },
+            $shared
+        );
+    }
+
+    /**
+     * It creates a singleton `AccessInterceptorValueHolder` proxy for the given class, and binds it to the container.
+     */
+    public function singletonInterceptorValueHolderProxy(string $abstract, ?Closure $concrete = null, array $prefixInterceptors = [], array $suffixInterceptors = []): void
+    {
+        $this->bindAccessInterceptorValueHolderProxy($abstract, $concrete, true, $prefixInterceptors, $suffixInterceptors);
+    }
+
+    /**
+     * It creates a `AccessInterceptorValueHolder` proxy for the given class, and binds it to the container.
+     */
+    public function bindAccessInterceptorValueHolderProxy(string $abstract, ?Closure $concrete = null, $shared = false, array $prefixInterceptors = [], array $suffixInterceptors = []): void
+    {
+        $this->container->bind($abstract, $concrete, $shared);
+
+        $instance = $this->container->make($abstract);
+
+        $this->container->bind(
+            $abstract,
+            function ($container, $parameters = []) use ($instance, $prefixInterceptors, $suffixInterceptors) {
+                return $this->createAccessInterceptorValueHolderProxy($instance, $prefixInterceptors, $suffixInterceptors);
             },
             $shared
         );

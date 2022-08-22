@@ -82,3 +82,23 @@ it('will not return for `singletonLazyLoadingValueHolderProxy`', function () {
         ->toBeInstanceOf(ValueHolderTestClass::class)
         ->toBeInstanceOf(VirtualProxyInterface::class);
 });
+
+it('will not return for `singletonInterceptorValueHolderProxy`', function () {
+    expect(new ProxyManager(app()))
+        ->singletonInterceptorValueHolderProxy(AccessInterceptorValueHolderTestClass::class)
+        ->toBeNull();
+
+    expect(app(AccessInterceptorValueHolderTestClass::class))
+        ->toBeInstanceOf(AccessInterceptorValueHolderTestClass::class)
+        ->toBeInstanceOf(AccessInterceptorValueHolderInterface::class);
+});
+
+it('will not return for `bindAccessInterceptorValueHolderProxy`', function () {
+    expect(new ProxyManager(app()))
+        ->bindAccessInterceptorValueHolderProxy(AccessInterceptorValueHolderTestClass::class)
+        ->toBeNull();
+
+    expect(app(AccessInterceptorValueHolderTestClass::class))
+        ->toBeInstanceOf(AccessInterceptorValueHolderTestClass::class)
+        ->toBeInstanceOf(AccessInterceptorValueHolderInterface::class);
+});

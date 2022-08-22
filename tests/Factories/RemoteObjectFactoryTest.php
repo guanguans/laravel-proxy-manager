@@ -21,7 +21,5 @@ it('will return instance of `ProxyGeneratorInterface`', function () {
 });
 
 it('will throw `RuntimeException`', function () {
-    expect(new RemoteObjectFactory())
-        ->createProxy(LocalObjectTestClass::class)
-        ->toThrow(RuntimeException::class, 'No adapter set');
-})->skip();
+    expect(new RemoteObjectFactory())->createProxy(LocalObjectTestClass::class);
+})->throws(RuntimeException::class, 'No adapter set');

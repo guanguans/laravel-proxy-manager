@@ -22,13 +22,18 @@
 
 ```bash
 $ composer require guanguans/laravel-proxy-manager --prefer-dist -vvv
+$ php artisan vendor:publish --provider="Guanguans\\LaravelProxyManager\\ProxyManagerServiceProvider"
 ```
 
 ## Usage
 
-[**example**](./tests/Facades)
+[**examples**](./tests/Facades)
+
+### Create proxy
 
 ```php
+<?php
+
 use Guanguans\LaravelProxyManager\Facades\ProxyManager;
 
 ProxyManager::createAccessInterceptorScopeLocalizerProxy($instance, $prefixInterceptors, $suffixInterceptors);
@@ -37,6 +42,75 @@ ProxyManager::createLazyLoadingGhostFactoryProxy($className, $initializer, $prox
 ProxyManager::createLazyLoadingValueHolderProxy($className, $initializer, $proxyOptions);
 ProxyManager::createNullObjectProxy($instanceOrClassName);
 ProxyManager::createRemoteObjectProxy($instanceOrClassName, $adapter);
+```
+
+### Bind noop virtual proxy
+
+```php
+<?php
+
+namespace App;
+
+use App\Foo;
+use Guanguans\LaravelProxyManager\Facades\ProxyManager;
+use SebastianBergmann\Timer\ResourceUsageFormatter;
+use SebastianBergmann\Timer\Timer;
+
+class Foo
+{
+    /** @var string */
+    private $bar;
+
+    public function __construct(string $bar = 'bar')
+    {
+        $this->bar = $bar;
+        sleep(3);
+    }
+
+    public function getBar(): string
+    {
+        return $this->bar;
+    }
+}
+
+// ProxyManager::bindNoopVirtualProxyIf(Foo::class);
+ProxyManager::singletonNoopVirtualProxyIf(Foo::class);
+
+$formatter = new ResourceUsageFormatter();
+$timer = new Timer();
+$timer->start();
+$timer->start();
+
+// The constructor of the original class is not triggered when the proxy class is initialized
+dump($foo = app(Foo::class), $formatter->resourceUsage($timer->stop()));
+// The constructor of the original class will only be triggered when it is actually called
+dump($foo->getBar(), $formatter->resourceUsage($timer->stop()));
+```
+
+```bash
+ProxyManagerGeneratedProxy\__PM__\App\Foo\Generated5320f6306ba550844e07c949e4af382d - App\Foo@proxy {#774
+  -valueHolder1cdad: null
+  -initializer7920c: Closure(?object &$wrappedObject, ?object $proxy, string $method, array $parameters, ?Closure &$initializer) {#758
+    class: "Guanguans\LaravelProxyManager\ProxyManager"
+    this: Guanguans\LaravelProxyManager\ProxyManager {#755 …}
+    use: {
+      $className: "App\Foo"
+      $classArgs: []
+    }
+    file: "/Users/yaozm/Documents/develop/laravel-proxy-manager/src/ProxyManager.php"
+    line: "282 to 287"
+  }
+}
+"Time: 00:00.008, Memory: 20.00 MB"
+"bar"
+"Time: 00:03.025, Memory: 22.00 MB"
+```
+
+### Commands
+
+```bash
+$ php artisan proxy:list
+$ php artisan proxy:clear
 ```
 
 ## Testing

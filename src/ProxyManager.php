@@ -17,7 +17,7 @@ use Guanguans\LaravelProxyManager\Facades\LazyLoadingGhostFactory;
 use Guanguans\LaravelProxyManager\Facades\LazyLoadingValueHolderFactory;
 use Guanguans\LaravelProxyManager\Facades\NullObjectFactory;
 use Guanguans\LaravelProxyManager\Facades\RemoteObjectFactory;
-use Illuminate\Contracts\Container\Container;
+use Illuminate\Container\Container;
 use InvalidArgumentException;
 use OutOfBoundsException;
 use ProxyManager\Factory\RemoteObject\AdapterInterface;
@@ -36,6 +36,16 @@ use RuntimeException;
 
 class ProxyManager
 {
+    /**
+     * @var \Illuminate\Contracts\Container\Container
+     */
+    private $container;
+
+    public function __construct()
+    {
+        $this->container = new Container();
+    }
+
     /**
      * @param object                 $instance           the object to be localized within the access interceptor
      * @param array<string, Closure> $prefixInterceptors an array (indexed by method name) of interceptor closures to be called
@@ -241,12 +251,18 @@ class ProxyManager
         return RemoteObjectFactory::createProxy($instanceOrClassName, $adapter);
     }
 
-    public function singletonNoopVirtualProxyIf(string $className, array $classArgs = [], ?Container $container = null): void
+    /**
+     * If the class is not already bound, bind it to a singleton proxy that will only instantiate the class when it is first used.
+     */
+    public function singletonNoopVirtualProxyIf(string $className, array $classArgs = []): void
     {
-        $this->bindNoopVirtualProxyIf($className, $classArgs, true, $container);
+        $this->bindNoopVirtualProxyIf($className, $classArgs, true);
     }
 
-    public function bindNoopVirtualProxyIf(string $className, array $classArgs = [], bool $shared = false, ?Container $container = null): void
+    /**
+     * If the class is not already bound, bind it to a proxy that will only instantiate the class when it is first used.
+     */
+    public function bindNoopVirtualProxyIf(string $className, array $classArgs = [], bool $shared = false): void
     {
         try {
             $reflectionClass = new ReflectionClass($className);
@@ -258,17 +274,17 @@ class ProxyManager
             throw new InvalidArgumentException("Target [$className] is not instantiable.");
         }
 
-        ($container ?: app())->bindIf(
+        app()->bindIf(
             $className,
-            function (Container $container) use ($className, $classArgs) {
+            function () use ($className, $classArgs) {
                 return $this->createLazyLoadingValueHolderProxy(
                     $className,
-                    static function (?object &$wrappedObject, ?object $proxy, string $method, array $parameters, ?Closure &$initializer) use ($container, $className, $classArgs) {
-                        $initializer = null;
-                        $wrappedObject = $container->make($className, $classArgs);
+                     function (?object &$wrappedObject, ?object $proxy, string $method, array $parameters, ?Closure &$initializer) use ($className, $classArgs) {
+                         $wrappedObject = $this->container->make($className, $classArgs);
+                         $initializer = null;
 
-                        return true;
-                    }
+                         return true;
+                     }
                 );
             },
             $shared

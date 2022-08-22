@@ -47,21 +47,21 @@ it('will return instance of `ProxyInterface`', function () {
         ->toBeInstanceOf(RemoteObjectInterface::class);
 });
 
-it('will throw `Target class [unkown] does not exist. InvalidArgumentException` for `bindNoopVirtualProxy`', function () {
-    (new ProxyManager(app()))->bindNoopVirtualProxy('unkown');
+it('will throw `Target class [unkown] does not exist. InvalidArgumentException` for `bindLazyLoadingValueHolderProxy`', function () {
+    (new ProxyManager(app()))->bindLazyLoadingValueHolderProxy('unkown');
 })->throws(InvalidArgumentException::class, 'Target class [unkown] does not exist.');
 
-it('will throw `Target [Guanguans\LaravelProxyManagerTests\Unkown] is not instantiable. InvalidArgumentExceptio` for `bindNoopVirtualProxy`', function () {
+it('will throw `Target [Guanguans\LaravelProxyManagerTests\Unkown] is not instantiable. InvalidArgumentExceptio` for `bindLazyLoadingValueHolderProxy`', function () {
     interface Unkown
     {
     }
 
-    (new ProxyManager(app()))->bindNoopVirtualProxy(Unkown::class);
+    (new ProxyManager(app()))->bindLazyLoadingValueHolderProxy(Unkown::class);
 })->throws(InvalidArgumentException::class, 'Target [Guanguans\LaravelProxyManagerTests\Unkown] is not instantiable.');
 
-it('will not return for `bindNoopVirtualProxy`', function () {
+it('will not return for `bindLazyLoadingValueHolderProxy`', function () {
     expect(new ProxyManager(app()))
-        ->bindNoopVirtualProxy(ValueHolderTestClass::class)
+        ->bindLazyLoadingValueHolderProxy(ValueHolderTestClass::class)
         ->toBeNull();
 
     expect(app(ValueHolderTestClass::class))
@@ -73,9 +73,9 @@ it('will not return for `bindNoopVirtualProxy`', function () {
         ->toBe('execute');
 });
 
-it('will not return for `singletonNoopVirtualProxy`', function () {
+it('will not return for `singletonLazyLoadingValueHolderProxy`', function () {
     expect(new ProxyManager(app()))
-        ->singletonNoopVirtualProxy(ValueHolderTestClass::class)
+        ->singletonLazyLoadingValueHolderProxy(ValueHolderTestClass::class)
         ->toBeNull();
 
     expect(app(ValueHolderTestClass::class))

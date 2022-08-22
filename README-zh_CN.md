@@ -76,8 +76,8 @@ class Foo
     }
 }
 
-// ProxyManager::bindNoopVirtualProxy(Foo::class);
-ProxyManager::singletonNoopVirtualProxy(Foo::class);
+// ProxyManager::bindLazyLoadingValueHolderProxy(Foo::class);
+ProxyManager::singletonLazyLoadingValueHolderProxy(Foo::class);
 
 $formatter = new ResourceUsageFormatter();
 $timer = new Timer();

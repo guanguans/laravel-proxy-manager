@@ -19,8 +19,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static \ProxyManager\Proxy\VirtualProxyInterface                 createLazyLoadingValueHolderProxy(string $className, \Closure $initializer, array $proxyOptions = [])
  * @method static \ProxyManager\Proxy\NullObjectInterface                   createNullObjectProxy($instanceOrClassName)
  * @method static \ProxyManager\Proxy\RemoteObjectInterface                 createRemoteObjectProxy($instanceOrClassName, ?\ProxyManager\Factory\RemoteObject\AdapterInterface $adapter = null)
- * @method static void                                                      singletonNoopVirtualProxy(string $className, ?\Closure $concrete = null)
- * @method static void                                                      bindNoopVirtualProxy(string $className, ?\Closure $concrete = null, $shared = false)
+ * @method static void                                                      singletonLazyLoadingValueHolderProxy(string $className, ?\Closure $concrete = null)
+ * @method static void                                                      bindLazyLoadingValueHolderProxy(string $className, ?\Closure $concrete = null, $shared = false)
  *
  * @mixin \Guanguans\LaravelProxyManager\ProxyManager
  *

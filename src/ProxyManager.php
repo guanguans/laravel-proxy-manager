@@ -254,15 +254,15 @@ class ProxyManager
     /**
      * bind it to a singleton proxy that will only instantiate the class when it is first used.
      */
-    public function singletonNoopVirtualProxy(string $className, ?Closure $concrete = null): void
+    public function singletonLazyLoadingValueHolderProxy(string $className, ?Closure $concrete = null): void
     {
-        $this->bindNoopVirtualProxy($className, $concrete, true);
+        $this->bindLazyLoadingValueHolderProxy($className, $concrete, true);
     }
 
     /**
      * bind it to a proxy that will only instantiate the class when it is first used.
      */
-    public function bindNoopVirtualProxy(string $className, ?Closure $concrete = null, $shared = false): void
+    public function bindLazyLoadingValueHolderProxy(string $className, ?Closure $concrete = null, $shared = false): void
     {
         try {
             $reflectionClass = new ReflectionClass($className);

@@ -321,7 +321,7 @@ class ProxyManager
 
         $this->container->bind(
             $abstract,
-            function ($container, $parameters = []) use ($instance, $prefixInterceptors, $suffixInterceptors) {
+            function () use ($instance, $prefixInterceptors, $suffixInterceptors) {
                 return $this->createAccessInterceptorValueHolderProxy($instance, $prefixInterceptors, $suffixInterceptors);
             },
             $shared

@@ -17,7 +17,7 @@ use Guanguans\LaravelProxyManager\Facades\LazyLoadingGhostFactory;
 use Guanguans\LaravelProxyManager\Facades\LazyLoadingValueHolderFactory;
 use Guanguans\LaravelProxyManager\Facades\NullObjectFactory;
 use Guanguans\LaravelProxyManager\Facades\RemoteObjectFactory;
-use Illuminate\Container\Container;
+use Illuminate\Contracts\Container\Container;
 use InvalidArgumentException;
 use OutOfBoundsException;
 use ProxyManager\Factory\RemoteObject\AdapterInterface;
@@ -41,9 +41,9 @@ class ProxyManager
      */
     private $container;
 
-    public function __construct()
+    public function __construct(Container $container)
     {
-        $this->container = new Container();
+        $this->container = $container;
     }
 
     /**
@@ -252,17 +252,17 @@ class ProxyManager
     }
 
     /**
-     * If the class is not already bound, bind it to a singleton proxy that will only instantiate the class when it is first used.
+     * bind it to a singleton proxy that will only instantiate the class when it is first used.
      */
-    public function singletonNoopVirtualProxyIf(string $className, array $classArgs = []): void
+    public function singletonNoopVirtualProxy(string $className, ?Closure $concrete = null): void
     {
-        $this->bindNoopVirtualProxyIf($className, $classArgs, true);
+        $this->bindNoopVirtualProxy($className, $concrete, true);
     }
 
     /**
-     * If the class is not already bound, bind it to a proxy that will only instantiate the class when it is first used.
+     * bind it to a proxy that will only instantiate the class when it is first used.
      */
-    public function bindNoopVirtualProxyIf(string $className, array $classArgs = [], bool $shared = false): void
+    public function bindNoopVirtualProxy(string $className, ?Closure $concrete = null, $shared = false): void
     {
         try {
             $reflectionClass = new ReflectionClass($className);
@@ -274,13 +274,19 @@ class ProxyManager
             throw new InvalidArgumentException("Target [$className] is not instantiable.");
         }
 
-        app()->bindIf(
+        if (is_null($concrete)) {
+            $concrete = function ($container, $parameters = []) use ($className) {
+                return $this->container->build($className);
+            };
+        }
+
+        $this->container->bind(
             $className,
-            function () use ($className, $classArgs) {
+            function ($container, $params = []) use ($className, $concrete) {
                 return $this->createLazyLoadingValueHolderProxy(
                     $className,
-                    function (?object &$wrappedObject, ?object $proxy, string $method, array $parameters, ?Closure &$initializer) use ($className, $classArgs) {
-                        $wrappedObject = $this->container->make($className, $classArgs);
+                    function (?object &$wrappedObject, ?object $proxy, string $method, array $parameters, ?Closure &$initializer) use ($concrete, $container, $params) {
+                        $wrappedObject = $concrete($container, $params);
                         $initializer = null;
 
                         return true;

@@ -27,10 +27,8 @@ use ProxyManager\Proxy\NullObjectInterface;
 use ProxyManager\Proxy\RemoteObjectInterface;
 use ProxyManager\Proxy\VirtualProxyInterface;
 
-dataset('proxyManagers', [new ProxyManager()]);
-
 it('will return instance of `ProxyInterface`', function () {
-    expect(new ProxyManager())
+    expect(new ProxyManager(app()))
         ->createAccessInterceptorScopeLocalizerProxy(new AccessInterceptorScopeLocalizerTestClass())
         ->toBeInstanceOf(AccessInterceptorInterface::class)
         ->createAccessInterceptorValueHolderProxy(new AccessInterceptorValueHolderTestClass())
@@ -49,21 +47,21 @@ it('will return instance of `ProxyInterface`', function () {
         ->toBeInstanceOf(RemoteObjectInterface::class);
 });
 
-it('will throw `Target class [unkown] does not exist. InvalidArgumentException` for `bindNoopVirtualProxyIf`', function (ProxyManager $proxyManager) {
-    $proxyManager->bindNoopVirtualProxyIf('unkown');
-})->with('proxyManagers')->throws(InvalidArgumentException::class, 'Target class [unkown] does not exist.');
+it('will throw `Target class [unkown] does not exist. InvalidArgumentException` for `bindNoopVirtualProxy`', function () {
+    (new ProxyManager(app()))->bindNoopVirtualProxy('unkown');
+})->throws(InvalidArgumentException::class, 'Target class [unkown] does not exist.');
 
-it('will throw `Target [Guanguans\LaravelProxyManagerTests\Unkown] is not instantiable. InvalidArgumentExceptio` for `bindNoopVirtualProxyIf`', function (ProxyManager $proxyManager) {
+it('will throw `Target [Guanguans\LaravelProxyManagerTests\Unkown] is not instantiable. InvalidArgumentExceptio` for `bindNoopVirtualProxy`', function () {
     interface Unkown
     {
     }
 
-    $proxyManager->bindNoopVirtualProxyIf(Unkown::class);
-})->with('proxyManagers')->throws(InvalidArgumentException::class, 'Target [Guanguans\LaravelProxyManagerTests\Unkown] is not instantiable.');
+    (new ProxyManager(app()))->bindNoopVirtualProxy(Unkown::class);
+})->throws(InvalidArgumentException::class, 'Target [Guanguans\LaravelProxyManagerTests\Unkown] is not instantiable.');
 
-it('will not return for `bindNoopVirtualProxyIf`', function (ProxyManager $proxyManager) {
-    expect($proxyManager)
-        ->bindNoopVirtualProxyIf(ValueHolderTestClass::class)
+it('will not return for `bindNoopVirtualProxy`', function () {
+    expect((new ProxyManager(app())))
+        ->bindNoopVirtualProxy(ValueHolderTestClass::class)
         ->toBeNull();
 
     expect(app(ValueHolderTestClass::class))
@@ -73,14 +71,14 @@ it('will not return for `bindNoopVirtualProxyIf`', function (ProxyManager $proxy
     expect(app(ValueHolderTestClass::class))
         ->execute()
         ->toBe('execute');
-})->with('proxyManagers');
+});
 
-it('will not return for `singletonNoopVirtualProxyIf`', function (ProxyManager $proxyManager) {
-    expect($proxyManager)
-        ->singletonNoopVirtualProxyIf(ValueHolderTestClass::class)
+it('will not return for `singletonNoopVirtualProxy`', function () {
+    expect((new ProxyManager(app())))
+        ->singletonNoopVirtualProxy(ValueHolderTestClass::class)
         ->toBeNull();
 
     expect(app(ValueHolderTestClass::class))
         ->toBeInstanceOf(ValueHolderTestClass::class)
         ->toBeInstanceOf(VirtualProxyInterface::class);
-})->with('proxyManagers');
+});

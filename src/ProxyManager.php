@@ -302,6 +302,38 @@ class ProxyManager
         );
     }
 
+    public function singletonNullObjectProxy(string $className): void
+    {
+        $this->bindNullObjectProxy($className, true);
+    }
+
+    public function bindNullObjectProxy(string $className, bool $shared = false): void
+    {
+        $this->container->bind(
+            $className,
+            function ($container, $parameters = []) use ($className) {
+                return $this->createNullObjectProxy($className);
+            },
+            $shared
+        );
+    }
+
+    public function singletonRemoteObjectProxy(string $className, ?AdapterInterface $adapter = null): void
+    {
+        $this->bindRemoteObjectProxy($className, $adapter, true);
+    }
+
+    public function bindRemoteObjectProxy(string $className, ?AdapterInterface $adapter = null, bool $shared = false): void
+    {
+        $this->container->bind(
+            $className,
+            function ($container, $parameters = []) use ($className, $adapter) {
+                return $this->createRemoteObjectProxy($className, $adapter);
+            },
+            $shared
+        );
+    }
+
     public function extendToAccessInterceptorScopeLocalizerProxy(string $abstract, array $prefixInterceptors = [], array $suffixInterceptors = []): void
     {
         $this->container->extend($abstract, function (object $instance, Container $container) use ($prefixInterceptors, $suffixInterceptors) {

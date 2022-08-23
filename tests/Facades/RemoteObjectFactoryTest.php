@@ -11,7 +11,7 @@
 namespace Guanguans\LaravelProxyManagerTests\Facades;
 
 use Guanguans\LaravelProxyManager\Facades\RemoteObjectFactory;
-use Guanguans\LaravelProxyManagerTests\TestClasses\LocalObjectTestClass;
+use Guanguans\LaravelProxyManagerTests\TestClasses\AbstractLocalObjectTestClass;
 use Guanguans\LaravelProxyManagerTests\TestClasses\RemoteObjectTestClass;
 use ProxyManager\Factory\RemoteObject\AdapterInterface;
 
@@ -26,10 +26,10 @@ it('should execute a proxy remote method', function () {
         {
             return $this->remoteObjectTestClass->{$method}(...$params);
         }
-    })->createProxy(LocalObjectTestClass::class);
+    })->createProxy(AbstractLocalObjectTestClass::class);
 
     expect($proxy)
-        ->toBeInstanceOf(LocalObjectTestClass::class)
+        ->toBeInstanceOf(AbstractLocalObjectTestClass::class)
         ->and($proxy->book($id = 2))
         ->toEqual($remoteObjectTestClass->book($id))
         ->and($proxy->author($id))

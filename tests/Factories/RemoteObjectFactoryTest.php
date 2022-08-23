@@ -10,7 +10,7 @@
 
 namespace Guanguans\LaravelProxyManager\Factories;
 
-use Guanguans\LaravelProxyManagerTests\TestClasses\LocalObjectTestClass;
+use Guanguans\LaravelProxyManagerTests\TestClasses\AbstractLocalObjectTestClass;
 use Nyholm\NSA;
 use ProxyManager\ProxyGenerator\ProxyGeneratorInterface;
 use RuntimeException;
@@ -21,5 +21,5 @@ it('will return instance of `ProxyGeneratorInterface`', function () {
 });
 
 it('will throw `RuntimeException`', function () {
-    expect(new RemoteObjectFactory())->createProxy(LocalObjectTestClass::class);
+    expect(new RemoteObjectFactory())->createProxy(AbstractLocalObjectTestClass::class);
 })->throws(RuntimeException::class, 'No adapter set');

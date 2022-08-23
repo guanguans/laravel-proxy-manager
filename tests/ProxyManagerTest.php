@@ -86,6 +86,46 @@ it('will not return for `singletonLazyLoadingValueHolderProxy`', function () {
         ->toBeInstanceOf(VirtualProxyInterface::class);
 });
 
+it('will not return for `bindNullObjectProxy`', function () {
+    expect(new ProxyManager(app()))
+        ->bindNullObjectProxy(NullObjectTestClass::class)
+        ->toBeNull()
+        ->and(app(NullObjectTestClass::class))
+        ->toBeInstanceOf(NullObjectInterface::class);
+});
+
+it('will not return for `singletonNullObjectProxy`', function () {
+    expect(new ProxyManager(app()))
+        ->singletonNullObjectProxy(NullObjectTestClass::class)
+        ->toBeNull()
+        ->and(app(NullObjectTestClass::class))
+        ->toBeInstanceOf(NullObjectInterface::class);
+});
+
+it('will not return for `bindRemoteObjectProxy`', function () {
+    expect(new ProxyManager(app()))
+        ->bindRemoteObjectProxy(AbstractLocalObjectTestClass::class, new class() implements AdapterInterface {
+            public function call(string $wrappedClass, string $method, array $params = [])
+            {
+            }
+        })
+        ->toBeNull()
+        ->and(app(AbstractLocalObjectTestClass::class))
+        ->toBeInstanceOf(AbstractLocalObjectTestClass::class);
+});
+
+it('will not return for `singletonRemoteObjectProxy`', function () {
+    expect(new ProxyManager(app()))
+        ->singletonRemoteObjectProxy(AbstractLocalObjectTestClass::class, new class() implements AdapterInterface {
+            public function call(string $wrappedClass, string $method, array $params = [])
+            {
+            }
+        })
+        ->toBeNull()
+        ->and(app(AbstractLocalObjectTestClass::class))
+        ->toBeInstanceOf(AbstractLocalObjectTestClass::class);
+});
+
 it('will not return for `extendToAccessInterceptorScopeLocalizerProxy`', function () {
     expect(new ProxyManager(app()))
         ->extendToAccessInterceptorScopeLocalizerProxy(

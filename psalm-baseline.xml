@@ -13,20 +13,22 @@
       <code>Str::of($proxiesDir)-&gt;finish('/')-&gt;append('*.php')</code>
     </ImplicitToStringCast>
   </file>
-  <file src="src/ProxyManager.php">
-    <InvalidReturnType occurrences="5"/>
-    <InvalidReturnStatement occurrences="5">
-      <code>AccessInterceptorScopeLocalizerFactory::createProxy($instance, $prefixInterceptors, $suffixInterceptors)</code>
-      <code>AccessInterceptorValueHolderFactory::createProxy($instance, $prefixInterceptors, $suffixInterceptors)</code>
-      <code>LazyLoadingGhostFactory::createProxy($className, $initializer, $proxyOptions)</code>
-      <code>LazyLoadingValueHolderFactory::createProxy($className, $initializer, $proxyOptions)</code>
-      <code>NullObjectFactory::createProxy($instanceOrClassName)</code>
-    </InvalidReturnStatement>
-    <UnusedClosureParam occurrences="7">
+  <file src="src/Concerns/BindProxy.php">
+    <UnusedClosureParam occurrences="11">
       <code>$container</code>
       <code>$method</code>
       <code>$parameters</code>
-      <code>$proxy</code>
+    </UnusedClosureParam>
+  </file>
+  <file src="src/Concerns/CreateProxy.php">
+    <InvalidReturnType occurrences="5"/>
+  </file>
+  <file src="src/Concerns/ExtendToProxy.php">
+    <InvalidArgument occurrences="2">
+      <code>$initializer</code>
+    </InvalidArgument>
+    <UnusedClosureParam occurrences="6">
+      <code>$container</code>
     </UnusedClosureParam>
   </file>
 </files>

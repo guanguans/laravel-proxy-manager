@@ -19,8 +19,18 @@ use Illuminate\Support\Facades\Facade;
  * @method static \ProxyManager\Proxy\VirtualProxyInterface                 createLazyLoadingValueHolderProxy(string $className, \Closure $initializer, array $proxyOptions = [])
  * @method static \ProxyManager\Proxy\NullObjectInterface                   createNullObjectProxy($instanceOrClassName)
  * @method static \ProxyManager\Proxy\RemoteObjectInterface                 createRemoteObjectProxy($instanceOrClassName, ?\ProxyManager\Factory\RemoteObject\AdapterInterface $adapter = null)
- * @method static void                                                      singletonLazyLoadingValueHolderProxy(string $abstract, ?\Closure $concrete = null, ?string $className = null, ?\Closure $initializer = null, array $proxyOptions = [])
- * @method static void                                                      bindLazyLoadingValueHolderProxy(string $abstract, ?\Closure $concrete = null, $shared = false, ?string $className = null, ?\Closure $initializer = null, array $proxyOptions = [])
+ * @method static void                                                      singletonLazyLoadingValueHolderProxy(string $className, ?\Closure $concrete = null)
+ * @method static void                                                      bindLazyLoadingValueHolderProxy(string $className, ?\Closure $concrete = null, bool $shared = false)
+ * @method static void                                                      singletonNullObjectProxy(string $className)
+ * @method static void                                                      bindNullObjectProxy(string $className, bool $shared = false)
+ * @method static void                                                      singletonRemoteObjectProxy(string $className, ?\ProxyManager\Factory\RemoteObject\AdapterInterface $adapter = null)
+ * @method static void                                                      bindRemoteObjectProxy(string $className, ?\ProxyManager\Factory\RemoteObject\AdapterInterface $adapter = null, bool $shared = false)
+ * @method static void                                                      extendToAccessInterceptorScopeLocalizerProxy(string $abstract, array $prefixInterceptors = [], array $suffixInterceptors = [])
+ * @method static void                                                      extendToAccessInterceptorValueHolderProxy(string $abstract, array $prefixInterceptors = [], array $suffixInterceptors = [])
+ * @method static void                                                      extendToLazyLoadingGhostFactoryProxy(string $abstract, \Closure $initializer, array $proxyOptions = [])
+ * @method static void                                                      extendToLazyLoadingValueHolderProxy(string $abstract, \Closure $initializer, array $proxyOptions = [])
+ * @method static void                                                      extendToNullObjectProxy(string $abstract)
+ * @method static void                                                      extendToRemoteObjectProxy(string $abstract, ?\ProxyManager\Factory\RemoteObject\AdapterInterface $adapter = null)
  *
  * @mixin \Guanguans\LaravelProxyManager\ProxyManager
  *

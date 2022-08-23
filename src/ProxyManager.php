@@ -254,20 +254,16 @@ class ProxyManager
     /**
      * bind it to a singleton proxy that will only instantiate the class when it is first used.
      */
-    public function singletonLazyLoadingValueHolderProxy(string $abstract, ?Closure $concrete = null, ?string $className = null, ?Closure $initializer = null, array $proxyOptions = []): void
+    public function singletonLazyLoadingValueHolderProxy(string $className, ?Closure $concrete = null): void
     {
-        $this->bindLazyLoadingValueHolderProxy($abstract, $concrete, true, $className, $initializer, $proxyOptions);
+        $this->bindLazyLoadingValueHolderProxy($className, $concrete);
     }
 
     /**
      * bind it to a proxy that will only instantiate the class when it is first used.
      */
-    public function bindLazyLoadingValueHolderProxy(string $abstract, ?Closure $concrete = null, $shared = false, ?string $className = null, ?Closure $initializer = null, array $proxyOptions = []): void
+    public function bindLazyLoadingValueHolderProxy(string $className, ?Closure $concrete = null, bool $shared = false): void
     {
-        if (is_null($className)) {
-            $className = $abstract;
-        }
-
         try {
             $reflectionClass = new ReflectionClass($className);
         } catch (ReflectionException $e) {
@@ -284,19 +280,17 @@ class ProxyManager
             };
         }
 
-        if (is_null($initializer)) {
-            $initializer = function (?object &$wrappedObject, VirtualProxyInterface $virtualProxy, string $method, array $parameters, ?Closure &$initializer) use ($concrete) {
-                $initializer = null;
-                $wrappedObject = $concrete($this->container, []);
+        $initializer = function (?object &$wrappedObject, VirtualProxyInterface $virtualProxy, string $method, array $parameters, ?Closure &$initializer) use ($concrete) {
+            $initializer = null;
+            $wrappedObject = $concrete($this->container, []);
 
-                return true;
-            };
-        }
+            return true;
+        };
 
         $this->container->bind(
-            $abstract,
-            function ($container, $parameters = []) use ($className, $initializer, $proxyOptions) {
-                return $this->createLazyLoadingValueHolderProxy($className, $initializer, $proxyOptions);
+            $className,
+            function ($container, $parameters = []) use ($className, $initializer) {
+                return $this->createLazyLoadingValueHolderProxy($className, $initializer);
             },
             $shared
         );

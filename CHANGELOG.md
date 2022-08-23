@@ -2,6 +2,10 @@
 
 All notable changes to `guanguans/laravel-proxy-manager` will be documented in this file.
 
+## v1.0.7 - 2022-08-23
+
+**Full Changelog**: https://github.com/guanguans/laravel-proxy-manager/compare/v1.0.6...v1.0.7
+
 ## v1.0.6 - 2022-08-23
 
 **Full Changelog**: https://github.com/guanguans/laravel-proxy-manager/compare/v1.0.5...v1.0.6

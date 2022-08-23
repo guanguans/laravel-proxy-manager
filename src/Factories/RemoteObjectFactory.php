@@ -30,9 +30,6 @@ class RemoteObjectFactory extends AbstractBaseFactory
 
     private RemoteObjectGenerator $generator;
 
-    /**
-     * {@inheritDoc}
-     */
     public function __construct(?AdapterInterface $adapter = null, ?Configuration $configuration = null)
     {
         parent::__construct($configuration);
@@ -75,9 +72,6 @@ class RemoteObjectFactory extends AbstractBaseFactory
         return $proxyClassName::staticProxyConstructor($adapter);
     }
 
-    /**
-     * @return $this
-     */
     public function setAdapter(AdapterInterface $adapter): self
     {
         $this->adapter = $adapter;

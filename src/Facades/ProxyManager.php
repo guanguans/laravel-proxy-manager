@@ -32,8 +32,6 @@ use Illuminate\Support\Facades\Facade;
  * @method static void                                                      extendToNullObjectProxy(string $abstract)
  * @method static void                                                      extendToRemoteObjectProxy(string $abstract, ?\ProxyManager\Factory\RemoteObject\AdapterInterface $adapter = null)
  *
- * @mixin \Guanguans\LaravelProxyManager\ProxyManager
- *
  * @see \Guanguans\LaravelProxyManager\ProxyManager
  */
 class ProxyManager extends Facade

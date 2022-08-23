@@ -19,17 +19,11 @@ use ReflectionException;
 
 trait BindProxy
 {
-    /**
-     * bind it to a singleton proxy that will only instantiate the class when it is first used.
-     */
     public function singletonLazyLoadingValueHolderProxy(string $className, ?Closure $concrete = null): void
     {
         $this->bindLazyLoadingValueHolderProxy($className, $concrete);
     }
 
-    /**
-     * bind it to a proxy that will only instantiate the class when it is first used.
-     */
     public function bindLazyLoadingValueHolderProxy(string $className, ?Closure $concrete = null, bool $shared = false): void
     {
         try {

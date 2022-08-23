@@ -2,7 +2,7 @@
 
 [简体中文](README-zh_CN.md) | [ENGLISH](README.md)
 
-> Proxy Manager integration for Laravel. - Laravel 的代理管理器集成。
+> [Proxy Manager](https://github.com/Ocramius/ProxyManager) integration for Laravel. - Laravel 的代理管理器集成。
 
 [![tests](https://github.com/guanguans/laravel-proxy-manager/workflows/tests/badge.svg)](https://github.com/guanguans/laravel-proxy-manager/actions)
 [![check & fix styling](https://github.com/guanguans/laravel-proxy-manager/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/guanguans/laravel-proxy-manager/actions)

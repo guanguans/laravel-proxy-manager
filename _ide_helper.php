@@ -33,4 +33,8 @@ namespace {
     class RemoteObjectFactory extends \Guanguans\LaravelProxyManager\Facades\RemoteObjectFactory
     {
     }
+
+    class ProxyManager extends \Guanguans\LaravelProxyManager\Facades\ProxyManager
+    {
+    }
 }

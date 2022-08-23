@@ -285,9 +285,9 @@ class ProxyManager
         }
 
         if (is_null($initializer)) {
-            $initializer = function (?object &$wrappedObject, ?object $proxy, string $method, array $parameters, ?Closure &$initializer) use ($concrete) {
-                $wrappedObject = $concrete($this->container, []);
+            $initializer = function (?object &$wrappedObject, VirtualProxyInterface $virtualProxy, string $method, array $parameters, ?Closure &$initializer) use ($concrete) {
                 $initializer = null;
+                $wrappedObject = $concrete($this->container, []);
 
                 return true;
             };
@@ -297,32 +297,6 @@ class ProxyManager
             $abstract,
             function ($container, $parameters = []) use ($className, $initializer, $proxyOptions) {
                 return $this->createLazyLoadingValueHolderProxy($className, $initializer, $proxyOptions);
-            },
-            $shared
-        );
-    }
-
-    /**
-     * It creates a singleton `AccessInterceptorValueHolder` proxy for the given class, and binds it to the container.
-     */
-    public function singletonInterceptorValueHolderProxy(string $abstract, ?Closure $concrete = null, array $prefixInterceptors = [], array $suffixInterceptors = []): void
-    {
-        $this->bindAccessInterceptorValueHolderProxy($abstract, $concrete, true, $prefixInterceptors, $suffixInterceptors);
-    }
-
-    /**
-     * It creates a `AccessInterceptorValueHolder` proxy for the given class, and binds it to the container.
-     */
-    public function bindAccessInterceptorValueHolderProxy(string $abstract, ?Closure $concrete = null, $shared = false, array $prefixInterceptors = [], array $suffixInterceptors = []): void
-    {
-        $this->container->bind($abstract, $concrete, $shared);
-
-        $instance = $this->container->make($abstract);
-
-        $this->container->bind(
-            $abstract,
-            function () use ($instance, $prefixInterceptors, $suffixInterceptors) {
-                return $this->createAccessInterceptorValueHolderProxy($instance, $prefixInterceptors, $suffixInterceptors);
             },
             $shared
         );

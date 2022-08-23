@@ -14,8 +14,6 @@ use Closure;
 use InvalidArgumentException;
 use ProxyManager\Factory\RemoteObject\AdapterInterface;
 use ProxyManager\Proxy\VirtualProxyInterface;
-use ReflectionClass;
-use ReflectionException;
 
 trait BindProxy
 {
@@ -26,14 +24,8 @@ trait BindProxy
 
     public function bindLazyLoadingValueHolderProxy(string $className, ?Closure $concrete = null, bool $shared = false): void
     {
-        try {
-            $reflectionClass = new ReflectionClass($className);
-        } catch (ReflectionException $e) {
+        if (! class_exists($className)) {
             throw new InvalidArgumentException("Target class [$className] does not exist.");
-        }
-
-        if (! $reflectionClass->isInstantiable()) {
-            throw new InvalidArgumentException("Target [$className] is not instantiable.");
         }
 
         if (is_null($concrete)) {
@@ -65,6 +57,10 @@ trait BindProxy
 
     public function bindNullObjectProxy(string $className, bool $shared = false): void
     {
+        if (! class_exists($className)) {
+            throw new InvalidArgumentException("Target class [$className] does not exist.");
+        }
+
         $this->container->bind(
             $className,
             function ($container, $parameters = []) use ($className) {
@@ -81,6 +77,10 @@ trait BindProxy
 
     public function bindRemoteObjectProxy(string $className, ?AdapterInterface $adapter = null, bool $shared = false): void
     {
+        if (! class_exists($className)) {
+            throw new InvalidArgumentException("Target class [$className] does not exist.");
+        }
+
         $this->container->bind(
             $className,
             function ($container, $parameters = []) use ($className, $adapter) {

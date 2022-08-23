@@ -22,11 +22,9 @@ afterEach(function () {
     ob_clean();
 });
 
-it("an access interceptor scope localizer is a smart reference proxy that allows you to dynamically define logic to be executed before or after any of the proxied object methods' logic", function () {
-    $accessInterceptorScopeLocalizer = new AccessInterceptorScopeLocalizerTestClass();
-
+it('will return `AccessInterceptorScopeLocalizer` proxy', function () {
     $proxy = AccessInterceptorScopeLocalizerFactory::createProxy(
-        $accessInterceptorScopeLocalizer,
+        $accessInterceptorScopeLocalizer = new AccessInterceptorScopeLocalizerTestClass(),
         [
             'fluentMethod' => static function (AccessInterceptorInterface $proxy, AccessInterceptorScopeLocalizerTestClass $realInstance) {
                 echo "before-fluentMethod: #$realInstance->counter\n";
@@ -39,12 +37,13 @@ it("an access interceptor scope localizer is a smart reference proxy that allows
         ]
     );
 
-    $proxy->fluentMethod()->fluentMethod()->fluentMethod();
-
-    expect($proxy->counter)
-        ->toEqual($accessInterceptorScopeLocalizer->counter)
-        ->toEqual(3);
-
-    expect(ob_get_contents())
-        ->toEqual("before-fluentMethod: #0\nafter-fluentMethod: #1\nbefore-fluentMethod: #1\nafter-fluentMethod: #2\nbefore-fluentMethod: #2\nafter-fluentMethod: #3\n");
+    expect($proxy)
+        ->toBeInstanceOf(AccessInterceptorScopeLocalizerTestClass::class)
+        ->toBeInstanceOf(AccessInterceptorInterface::class)
+        ->fluentMethod()->fluentMethod()
+        ->and($proxy->counter)
+        ->toBe($accessInterceptorScopeLocalizer->counter)
+        ->toBe(2)
+        ->and(ob_get_contents())
+        ->toBe("before-fluentMethod: #0\nafter-fluentMethod: #1\nbefore-fluentMethod: #1\nafter-fluentMethod: #2\n");
 });

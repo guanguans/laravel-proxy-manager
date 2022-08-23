@@ -10,10 +10,11 @@
 
 namespace Guanguans\LaravelProxyManagerTests\TestClasses;
 
-class LazyLoadingValueHolderTestClass extends ValueHolderTestClass
+use ProxyManager\Factory\RemoteObject\AdapterInterface;
+
+class RemoteNullObjectAdapterTestClass implements AdapterInterface
 {
-    public function __construct(int $sleepMicroseconds = 0)
+    public function call(string $wrappedClass, string $method, array $params = [])
     {
-        usleep($sleepMicroseconds);
     }
 }

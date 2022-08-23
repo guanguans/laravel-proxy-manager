@@ -12,7 +12,6 @@ namespace Guanguans\LaravelProxyManagerTests;
 
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 use Guanguans\LaravelProxyManager\ProxyManagerServiceProvider;
-use Illuminate\Support\Facades\Route;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -74,16 +73,5 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
     protected function setUpRoutes()
     {
-        Route::get('book/{id}', function ($id) {
-            return response()->json([
-                'detail' => "Remote book #$id",
-            ]);
-        });
-
-        Route::get('author/{id}', function ($id) {
-            return response()->json([
-                'detail' => "Remote author #$id",
-            ]);
-        });
     }
 }

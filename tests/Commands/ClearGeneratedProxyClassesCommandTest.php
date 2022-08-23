@@ -13,12 +13,11 @@ namespace Guanguans\LaravelProxyManagerTests\Commands;
 use Guanguans\LaravelProxyManager\Commands\ClearGeneratedProxyClassesCommand;
 use Illuminate\Support\Str;
 
-it('proxy classes directory not found', function () {
+it('will output `Proxy classes directory not found.`', function () {
     config([
         'proxy-manager.generated_proxies_dir' => __DIR__.DIRECTORY_SEPARATOR
                                                  .'..'.DIRECTORY_SEPARATOR
-                                                 .Str::random().DIRECTORY_SEPARATOR
-                                                 .Str::random(),
+                                                 .Str::random().DIRECTORY_SEPARATOR,
     ]);
 
     \Pest\Laravel\artisan(ClearGeneratedProxyClassesCommand::class)
@@ -26,7 +25,7 @@ it('proxy classes directory not found', function () {
         ->assertSuccessful();
 });
 
-it('proxy classes have been cleared', function () {
+it('will clear successfully', function () {
     config([
         'proxy-manager.generated_proxies_dir' => __DIR__.DIRECTORY_SEPARATOR
                                                  .'..'.DIRECTORY_SEPARATOR

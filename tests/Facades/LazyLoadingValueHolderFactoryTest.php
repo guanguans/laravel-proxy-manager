@@ -14,12 +14,13 @@ use Closure;
 use Guanguans\LaravelProxyManager\Facades\LazyLoadingValueHolderFactory;
 use Guanguans\LaravelProxyManagerTests\TestClasses\LazyLoadingValueHolderTestClass;
 use Guanguans\LaravelProxyManagerTests\TestClasses\ValueHolderTestClass;
+use ProxyManager\Proxy\VirtualProxyInterface;
 use SebastianBergmann\Timer\Timer;
 
-it('the return value is the same as the return value of the source class method', function () {
+it('will return `LazyLoadingValueHolder` proxy', function () {
     $proxy = LazyLoadingValueHolderFactory::createProxy(
         ValueHolderTestClass::class,
-        function (?object &$wrappedObject, ?object $proxy, string $method, array $parameters, ?Closure &$initializer) {
+        function (?object &$wrappedObject, ?VirtualProxyInterface $proxy, string $method, array $parameters, ?Closure &$initializer) {
             $initializer = null;
             $wrappedObject = new ValueHolderTestClass();
 
@@ -27,29 +28,32 @@ it('the return value is the same as the return value of the source class method'
         }
     );
 
-    expect($proxy->execute())->toEqual((new ValueHolderTestClass())->execute());
+    expect($proxy)
+        ->toBeInstanceOf(ValueHolderTestClass::class)
+        ->toBeInstanceOf(VirtualProxyInterface::class);
 });
 
-it('the class is actually initialized when the proxy class calls the method', function () {
+it('will actually initialized when the proxy class calls the method', function () {
     $timer = new Timer();
     $timer->start();
     $timer->start();
     $timer->start();
 
-    $sleepSeconds = 1;
+    $sleepMicroseconds = 100000;
     $proxy = LazyLoadingValueHolderFactory::createProxy(
         LazyLoadingValueHolderTestClass::class,
-        function (?object &$wrappedObject, ?object $proxy, string $method, array $parameters, ?Closure &$initializer) use ($sleepSeconds) {
+        function (?object &$wrappedObject, ?VirtualProxyInterface $proxy, string $method, array $parameters, ?Closure &$initializer) use ($sleepMicroseconds) {
             $initializer = null;
-            $wrappedObject = new LazyLoadingValueHolderTestClass($sleepSeconds);
+            $wrappedObject = new LazyLoadingValueHolderTestClass($sleepMicroseconds);
 
             return true;
         }
     );
+    expect($timer->stop()->asMicroseconds())->toBeLessThan($sleepMicroseconds);
 
-    expect($timer->stop()->asSeconds())->toBeLessThan($sleepSeconds);
     $proxy->execute();
-    expect($timer->stop()->asSeconds())->toBeGreaterThan($sleepSeconds);
+    expect($timer->stop()->asMicroseconds())->toBeGreaterThan($sleepMicroseconds);
+
     $proxy->execute();
-    expect($timer->stop()->asSeconds())->toBeGreaterThan($sleepSeconds)->toBeLessThan(2 * $sleepSeconds);
+    expect($timer->stop()->asMicroseconds())->between($sleepMicroseconds, 2 * $sleepMicroseconds);
 });

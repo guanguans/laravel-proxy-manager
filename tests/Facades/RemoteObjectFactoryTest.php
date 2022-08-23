@@ -11,25 +11,33 @@
 namespace Guanguans\LaravelProxyManagerTests\Facades;
 
 use Guanguans\LaravelProxyManager\Facades\RemoteObjectFactory;
-use Guanguans\LaravelProxyManagerTests\TestClasses\AbstractLocalObjectTestClass;
-use Guanguans\LaravelProxyManagerTests\TestClasses\RemoteObjectTestClass;
-use ProxyManager\Factory\RemoteObject\AdapterInterface;
+use Guanguans\LaravelProxyManagerTests\TestClasses\AbstractLocalBookObjectTestClass;
+use Guanguans\LaravelProxyManagerTests\TestClasses\RemoteBookObjectAdapterTestClass;
+use Guanguans\LaravelProxyManagerTests\TestClasses\RemoteBookObjectTestClass;
+use Illuminate\Support\Facades\Route;
+use ProxyManager\Proxy\RemoteObjectInterface;
 
-it('should execute a proxy remote method', function () {
-    $proxy = RemoteObjectFactory::setAdapter(new class($remoteObjectTestClass = new RemoteObjectTestClass()) implements AdapterInterface {
-        public function __construct(RemoteObjectTestClass $remoteObjectTestClass)
-        {
-            $this->remoteObjectTestClass = $remoteObjectTestClass;
-        }
+beforeEach(function () {
+    Route::get('book/{id}', function ($id) {
+        return response()->json([
+            'detail' => "Remote book #$id",
+        ]);
+    });
 
-        public function call(string $wrappedClass, string $method, array $params = [])
-        {
-            return $this->remoteObjectTestClass->{$method}(...$params);
-        }
-    })->createProxy(AbstractLocalObjectTestClass::class);
+    Route::get('author/{id}', function ($id) {
+        return response()->json([
+            'detail' => "Remote author #$id",
+        ]);
+    });
+});
+
+it('will return `RemoteObject` proxy', function () {
+    $proxy = RemoteObjectFactory::setAdapter(new RemoteBookObjectAdapterTestClass($remoteObjectTestClass = new RemoteBookObjectTestClass()))
+        ->createProxy(AbstractLocalBookObjectTestClass::class);
 
     expect($proxy)
-        ->toBeInstanceOf(AbstractLocalObjectTestClass::class)
+        ->toBeInstanceOf(AbstractLocalBookObjectTestClass::class)
+        ->toBeInstanceOf(RemoteObjectInterface::class)
         ->and($proxy->book($id = 2))
         ->toEqual($remoteObjectTestClass->book($id))
         ->and($proxy->author($id))

@@ -10,7 +10,7 @@
 
 namespace Guanguans\LaravelProxyManagerTests\TestClasses;
 
-class RemoteObjectTestClass extends AbstractLocalObjectTestClass
+class RemoteBookObjectTestClass extends AbstractLocalBookObjectTestClass
 {
     public function book($id)
     {
@@ -19,6 +19,6 @@ class RemoteObjectTestClass extends AbstractLocalObjectTestClass
 
     public function author($id)
     {
-        return \Pest\Laravel\getJson("/author/$id")->json();
+        return \Pest\Laravel\get("/author/$id")->json();
     }
 }

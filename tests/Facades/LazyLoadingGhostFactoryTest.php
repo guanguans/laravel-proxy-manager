@@ -14,7 +14,7 @@ use Guanguans\LaravelProxyManager\Facades\LazyLoadingGhostFactory;
 use Guanguans\LaravelProxyManagerTests\TestClasses\LazyLoadingGhostTestClass;
 use ProxyManager\Proxy\GhostObjectInterface;
 
-it("the property doesn't actually exist until the ghost object is initialized", function () {
+it('will return `LazyLoadingGhost` proxy', function () {
     $id = 1;
     $name = 'name';
 
@@ -22,9 +22,9 @@ it("the property doesn't actually exist until the ghost object is initialized", 
         LazyLoadingGhostTestClass::class,
         function (GhostObjectInterface $proxy, string $method, array $parameters, &$initializer, array $properties) use ($id, $name) {
             $initializer = null;
-            dump('Triggered lazy-loading');
             $properties["\0Guanguans\\LaravelProxyManagerTests\\TestClasses\\LazyLoadingGhostTestClass\0id"] = $id;
             $properties["\0Guanguans\\LaravelProxyManagerTests\\TestClasses\\LazyLoadingGhostTestClass\0name"] = $name;
+            dump('Triggered lazy loading.');
 
             return true;
         },
@@ -35,6 +35,11 @@ it("the property doesn't actually exist until the ghost object is initialized", 
         ]
     );
 
-    expect($proxy->getId())->toBeNull();
-    expect($proxy->getName())->toEqual($name);
+    expect($proxy)
+        ->toBeInstanceOf(LazyLoadingGhostTestClass::class)
+        ->toBeInstanceOf(GhostObjectInterface::class)
+        ->getName() // Triggered lazy loading.'
+        ->toBe($name)
+        ->getId()
+        ->toBeNull();
 });

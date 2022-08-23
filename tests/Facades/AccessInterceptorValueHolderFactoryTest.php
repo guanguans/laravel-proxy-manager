@@ -12,6 +12,7 @@ namespace Guanguans\LaravelProxyManagerTests\Facades;
 
 use Guanguans\LaravelProxyManager\Facades\AccessInterceptorValueHolderFactory;
 use Guanguans\LaravelProxyManagerTests\TestClasses\AccessInterceptorValueHolderTestClass;
+use ProxyManager\Proxy\AccessInterceptorValueHolderInterface;
 
 beforeEach(function () {
     ob_get_contents() and ob_clean() and ob_start();
@@ -21,7 +22,7 @@ afterEach(function () {
     ob_clean();
 });
 
-it('add pre-execution and post-execution behavior to a method', function () {
+it('will return `AccessInterceptorValueHolder` proxy', function () {
     $proxy = AccessInterceptorValueHolderFactory::createProxy(
         new AccessInterceptorValueHolderTestClass(),
         [
@@ -36,7 +37,10 @@ it('add pre-execution and post-execution behavior to a method', function () {
         ]
     );
 
-    $proxy->execute();
-
-    expect(ob_get_contents())->toEqual("before-execute\nafter-execute");
+    expect($proxy)
+        ->toBeInstanceOf(AccessInterceptorValueHolderTestClass::class)
+        ->toBeInstanceOf(AccessInterceptorValueHolderInterface::class)
+        ->execute()
+        ->and(ob_get_contents())
+        ->toBe("before-execute\nafter-execute");
 });

@@ -15,12 +15,11 @@ use Guanguans\LaravelProxyManager\Facades\NullObjectFactory;
 use Guanguans\LaravelProxyManagerTests\TestClasses\NullObjectTestClass;
 use Illuminate\Support\Str;
 
-it('proxy classes directory not found', function () {
+it('will output `Proxy classes directory not found.`', function () {
     config([
         'proxy-manager.generated_proxies_dir' => __DIR__.DIRECTORY_SEPARATOR
                                                  .'..'.DIRECTORY_SEPARATOR
-                                                 .Str::random().DIRECTORY_SEPARATOR
-                                                 .Str::random(),
+                                                 .Str::random().DIRECTORY_SEPARATOR,
     ]);
 
     \Pest\Laravel\artisan(ListGeneratedProxyClassesCommand::class)
@@ -28,7 +27,7 @@ it('proxy classes directory not found', function () {
         ->assertSuccessful();
 });
 
-it('no generated proxy classes found', function () {
+it('will output `No generated proxy classes found.`', function () {
     config([
         'proxy-manager.generated_proxies_dir' => __DIR__.DIRECTORY_SEPARATOR
                                                  .'..'.DIRECTORY_SEPARATOR
@@ -41,7 +40,7 @@ it('no generated proxy classes found', function () {
         ->assertSuccessful();
 });
 
-it('list generated proxy class infos', function () {
+it('will output table', function () {
     config([
         'proxy-manager.generated_proxies_dir' => __DIR__.DIRECTORY_SEPARATOR
                                                  .'..'.DIRECTORY_SEPARATOR

@@ -21,6 +21,14 @@ return [
 
     /*
      * The proxy manager will use this strategy to generate proxies.
+     *
+     * ```php
+     * [
+     *     \ProxyManager\GeneratorStrategy\BaseGeneratorStrategy::class,
+     *     \ProxyManager\GeneratorStrategy\FileWriterGeneratorStrategy::class,
+     *     \ProxyManager\GeneratorStrategy\EvaluatingGeneratorStrategy::class
+     * ]
+     * ```
      */
     'generator_strategy_class' => env('PROXY_MANAGER_GENERATOR_STRATEGY_CLASS', \ProxyManager\GeneratorStrategy\FileWriterGeneratorStrategy::class),
 ];

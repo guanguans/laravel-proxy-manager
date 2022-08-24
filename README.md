@@ -13,6 +13,12 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/guanguans/laravel-proxy-manager)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/guanguans/laravel-proxy-manager)
 
+## Feature
+
+* Quickly create different types of proxy instances.
+* Quickly bind different types of proxy instances to container.
+* Quickly extend to different types of proxy instances to container.
+
 ## Requirement
 
 * PHP >= 7.4
@@ -21,7 +27,7 @@
 ## Installation
 
 ```shell
-$ composer require guanguans/laravel-proxy-manager --prefer-dist -vvv
+$ composer require guanguans/laravel-proxy-manager -vvv
 ```
 
 ```shell
@@ -30,9 +36,16 @@ $ php artisan vendor:publish --provider="Guanguans\\LaravelProxyManager\\ProxyMa
 
 ## Usage
 
-[**examples**](./tests/Facades)
+[**test examples**](./tests/Facades)
 
-### Facade methods
+### Get proxy manager instance
+
+```php
+app(\Guanguans\LaravelProxyManager\ProxyManager::class);
+resolve(\Guanguans\LaravelProxyManager\ProxyManager::class);
+```
+
+### Proxy manager facade methods
 
 ```php
 <?php
@@ -69,7 +82,7 @@ namespace Guanguans\LaravelProxyManager\Facades;
 class ProxyManager{}
 ```
 
-### Binding virtual proxy example(lazy loading)
+### Binding virtual proxy example(Lazy Init)
 
 ```php
 <?php
@@ -131,7 +144,7 @@ ProxyManagerGeneratedProxy\__PM__\App\Foo\Generated5320f6306ba550844e07c949e4af3
 "Time: 00:03.025, Memory: 22.00 MB"
 ```
 
-### Extend to access interceptor value holder proxy example(aop)
+### Extend to access interceptor value holder proxy example(Aop)
 
 ```php
 ProxyManager::extendToAccessInterceptorValueHolderProxy(

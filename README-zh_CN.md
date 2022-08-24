@@ -13,6 +13,12 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/guanguans/laravel-proxy-manager)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/guanguans/laravel-proxy-manager)
 
+## 功能
+
+* 快速创建不同类型的代理实例。
+* 快速绑定不同类型的代理实例到容器。
+* 快速扩展为不同类型的代理实例到容器。
+
 ## 环境要求
 
 * PHP >= 7.4
@@ -21,7 +27,7 @@
 ## 安装
 
 ```shell
-$ composer require guanguans/laravel-proxy-manager --prefer-dist -vvv
+$ composer require guanguans/laravel-proxy-manager -vvv
 ```
 
 ```shell
@@ -30,9 +36,16 @@ $ php artisan vendor:publish --provider="Guanguans\\LaravelProxyManager\\ProxyMa
 
 ## 使用
 
-[**示例**](./tests/Facades)
+[**测试示例**](./tests/Facades)
 
-### 门面方法
+### 获取代理管理器实例
+
+```php
+app(\Guanguans\LaravelProxyManager\ProxyManager::class);
+resolve(\Guanguans\LaravelProxyManager\ProxyManager::class);
+```
+
+### 代理管理器门面方法
 
 ```php
 <?php
@@ -69,7 +82,7 @@ namespace Guanguans\LaravelProxyManager\Facades;
 class ProxyManager{}
 ```
 
-### 绑定虚拟代理示例(懒加载)
+### 绑定虚拟代理示例(懒初始化)
 
 ```php
 <?php
@@ -131,7 +144,7 @@ ProxyManagerGeneratedProxy\__PM__\App\Foo\Generated5320f6306ba550844e07c949e4af3
 "Time: 00:03.025, Memory: 22.00 MB"
 ```
 
-### 扩展为访问拦截器值持有者代理示例(aop)
+### 扩展为访问拦截器值持有者代理示例(切面)
 
 ```php
 ProxyManager::extendToAccessInterceptorValueHolderProxy(

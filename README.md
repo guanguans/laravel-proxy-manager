@@ -20,11 +20,11 @@
 
 ## Installation
 
-```bash
+```shell
 $ composer require guanguans/laravel-proxy-manager --prefer-dist -vvv
 ```
 
-```bash
+```shell
 $ php artisan vendor:publish --provider="Guanguans\\LaravelProxyManager\\ProxyManagerServiceProvider"
 ```
 
@@ -32,7 +32,7 @@ $ php artisan vendor:publish --provider="Guanguans\\LaravelProxyManager\\ProxyMa
 
 [**examples**](./tests/Facades)
 
-### Facade
+### Facade methods
 
 ```php
 <?php
@@ -69,7 +69,7 @@ namespace Guanguans\LaravelProxyManager\Facades;
 class ProxyManager{}
 ```
 
-### Binding virtual proxy example
+### Binding virtual proxy example(lazy loading)
 
 ```php
 <?php
@@ -112,7 +112,7 @@ dump($foo = app(Foo::class), $formatter->resourceUsage($timer->stop()));
 dump($foo->getBar(), $formatter->resourceUsage($timer->stop()));
 ```
 
-```bash
+```shell
 ProxyManagerGeneratedProxy\__PM__\App\Foo\Generated5320f6306ba550844e07c949e4af382d - App\Foo@proxy {#774
   -valueHolder1cdad: null
   -initializer7920c: Closure(?object &$wrappedObject, ?object $proxy, string $method, array $parameters, ?Closure &$initializer) {#758
@@ -131,16 +131,80 @@ ProxyManagerGeneratedProxy\__PM__\App\Foo\Generated5320f6306ba550844e07c949e4af3
 "Time: 00:03.025, Memory: 22.00 MB"
 ```
 
+### Extend to access interceptor value holder proxy example(aop)
+
+```php
+ProxyManager::extendToAccessInterceptorValueHolderProxy(
+    LogManager::class,
+    [
+        'error' => static function (
+            object $proxy,
+            LogManager $realInstance,
+            string $method,
+            array $parameters,
+            bool &$returnEarly
+        ){
+            dump('Before executing the error log method.');
+        }
+    ],
+    [
+        'error' => static function (
+            object $proxy,
+            LogManager $realInstance,
+            string $method,
+            array $parameters,
+            &$returnValue,
+            bool &$overrideReturnValue
+        ){
+            dump('After executing the error log method.');
+        }
+    ]
+);
+
+dump($logger = app(LogManager::class));
+$logger->error('What happened?');
+```
+
+```shell
+ProxyManagerGeneratedProxy\__PM__\Illuminate\Log\LogManager\Generated9b66c8f3bc457c2c26acc55874d391b3 - Illuminate\Log\LogManager@proxy {#298 ▼
+  -valueHolder8f21a: Illuminate\Log\LogManager {#168 ▼
+    #app: Illuminate\Foundation\Application {#6 ▶}
+    #channels: []
+    #customCreators: array:1 [▶]
+    #dateFormat: "Y-m-d H:i:s"
+    #levels: array:8 [▶]
+  }
+  -methodPrefixInterceptors8d709: array:1 [▼
+    "error" => Closure(object $proxy, LogManager $realInstance, string $method, array $parameters, bool &$returnEarly) {#280 ▶}
+  ]
+  -methodSuffixInterceptors2a12b: array:1 [▼
+    "error" => Closure(object $proxy, LogManager $realInstance, string $method, array $parameters, &$returnValue, bool &$overrideReturnValue) {#278 ▶}
+  ]
+}
+"Before executing the error log method."
+"After executing the error log method."
+```
+
 ### Commands
 
-```bash
+```shell
 $ php artisan proxy:list
 $ php artisan proxy:clear
 ```
 
+```shell
+╰─ php artisan proxy:list                                                                                       ─╯
++-------+---------------------------+-------------------------------------------+---------------------------------+
+| Index | Original Class            | Proxy Class                               | Proxy Type                      |
++-------+---------------------------+-------------------------------------------+---------------------------------+
+| 1     | App\Foo                   | Generated5320f6306ba550844e07c949e4af382d | Virtual Proxy                   |
+| 2     | Illuminate\Log\LogManager | Generated9b66c8f3bc457c2c26acc55874d391b3 | Access Interceptor Value Holder |
++-------+---------------------------+-------------------------------------------+---------------------------------+
+```
+
 ## Testing
 
-```bash
+```shell
 $ composer test
 ```
 

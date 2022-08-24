@@ -25,6 +25,12 @@ class UpdateHelper implements UpdateHelperInterface
     public function check(\UpdateHelper\UpdateHelper $helper)
     {
         $helper->write('The guanguans/laravel-proxy-manager update checking...');
+
+        if (! $helper->hasAsDependency('nikic/php-parser')) {
+            $helper->getIo()->warning('The `nikic/php-parser` required to use `proxy:list` command.');
+            $helper->getIo()->warning('You can install it with "composer require nikic/php-parser".');
+        }
+
         $helper->write('The guanguans/laravel-proxy-manager update checking done.');
     }
 }

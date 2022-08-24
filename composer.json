@@ -43,6 +43,7 @@
     "require-dev": {
         "brainmaestro/composer-git-hooks": "^2.8",
         "codedungeon/phpunit-result-printer": "^0.31 || ^0.32",
+        "composer/composer": "^2.0",
         "dg/bypass-finals": "^1.3",
         "dms/phpunit-arraysubset-asserts": "^0.3 || ^0.4",
         "friendsofphp/php-cs-fixer": "^3.4",

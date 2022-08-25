@@ -21,10 +21,7 @@ class ProxyManager
     use CreateProxy;
     use ExtendToProxy;
 
-    /**
-     * @var \Illuminate\Container\Container
-     */
-    protected $container;
+    protected Container $container;
 
     public function __construct(Container $container)
     {

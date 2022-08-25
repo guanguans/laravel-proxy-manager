@@ -30,6 +30,7 @@ $finder = PhpCsFixer\Finder::create()
         'doc/',
         'docs/',
         'vendor/',
+        'stub/proxies/',
     ])
     ->name('*.php')
     ->notName([

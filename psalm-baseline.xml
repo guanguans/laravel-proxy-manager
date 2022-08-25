@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.26.0@6998fabb2bf528b65777bf9941920888d23c03ac">
+<files psalm-version="v4.25.0@d7cd84c4ebca74ba3419b9601f81d177bcbe2aac">
   <file src="src/Commands/ClearGeneratedProxyClassesCommand.php">
     <ImplicitToStringCast occurrences="1">
       <code>Str::of($proxiesDir)-&gt;finish('/')-&gt;append('*.php')</code>

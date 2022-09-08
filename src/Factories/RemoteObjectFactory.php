@@ -47,8 +47,11 @@ class RemoteObjectFactory extends AbstractBaseFactory
      * @throws RuntimeException
      *
      * @psalm-template RealObjectType of object
+     *
      * @psalm-param RealObjectType|class-string<RealObjectType> $instanceOrClassName
+     *
      * @psalm-return RealObjectType&RemoteObjectInterface
+     *
      * @psalm-suppress MixedInferredReturnType We ignore type checks here, since `staticProxyConstructor` is not
      *                                         interfaced (by design)
      */

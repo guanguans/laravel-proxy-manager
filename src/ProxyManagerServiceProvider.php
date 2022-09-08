@@ -14,6 +14,7 @@ use Guanguans\LaravelProxyManager\Commands\ClearGeneratedProxyClassesCommand;
 use Guanguans\LaravelProxyManager\Commands\ListGeneratedProxyClassesCommand;
 use Guanguans\LaravelProxyManager\Factories\RemoteObjectFactory;
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Foundation\Console\AboutCommand;
 use ProxyManager\Configuration;
 use ProxyManager\Factory\AccessInterceptorScopeLocalizerFactory;
 use ProxyManager\Factory\AccessInterceptorValueHolderFactory;
@@ -69,5 +70,17 @@ class ProxyManagerServiceProvider extends PackageServiceProvider
         $this->app->singleton(NullObjectFactory::class);
         $this->app->singleton(RemoteObjectFactory::class);
         $this->app->singleton(ProxyManager::class);
+    }
+
+    public function packageBooted()
+    {
+        if (class_exists(AboutCommand::class)) {
+            AboutCommand::add('Laravel Proxy Manager', [
+                    'Author' => 'guanguans',
+                    'Homepage' => 'https://github.com/guanguans/laravel-proxy-manager',
+                    'License' => 'MIT',
+                ]
+            );
+        }
     }
 }

@@ -10,7 +10,6 @@
 [![Latest Stable Version](https://poser.pugx.org/guanguans/laravel-proxy-manager/v)](//packagist.org/packages/guanguans/laravel-proxy-manager)
 [![Total Downloads](https://poser.pugx.org/guanguans/laravel-proxy-manager/downloads)](//packagist.org/packages/guanguans/laravel-proxy-manager)
 [![License](https://poser.pugx.org/guanguans/laravel-proxy-manager/license)](//packagist.org/packages/guanguans/laravel-proxy-manager)
-![GitHub repo size](https://img.shields.io/github/repo-size/guanguans/laravel-proxy-manager)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/guanguans/laravel-proxy-manager)
 
 ## Feature

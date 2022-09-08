@@ -29,9 +29,7 @@ trait BindProxy
         }
 
         if (is_null($concrete)) {
-            $concrete = function ($container, $parameters = []) use ($className) {
-                return $this->container->build($className);
-            };
+            $concrete = fn ($container, $parameters = []) => $this->container->build($className);
         }
 
         $initializer = function (?object &$wrappedObject, VirtualProxyInterface $virtualProxy, string $method, array $parameters, ?Closure &$initializer) use ($concrete) {
@@ -43,9 +41,7 @@ trait BindProxy
 
         $this->container->bind(
             $className,
-            function ($container, $parameters = []) use ($className, $initializer) {
-                return $this->createLazyLoadingValueHolderProxy($className, $initializer);
-            },
+            fn ($container, $parameters = []) => $this->createLazyLoadingValueHolderProxy($className, $initializer),
             $shared
         );
     }
@@ -63,9 +59,7 @@ trait BindProxy
 
         $this->container->bind(
             $className,
-            function ($container, $parameters = []) use ($className) {
-                return $this->createNullObjectProxy($className);
-            },
+            fn ($container, $parameters = []) => $this->createNullObjectProxy($className),
             $shared
         );
     }
@@ -83,9 +77,7 @@ trait BindProxy
 
         $this->container->bind(
             $className,
-            function ($container, $parameters = []) use ($className, $adapter) {
-                return $this->createRemoteObjectProxy($className, $adapter);
-            },
+            fn ($container, $parameters = []) => $this->createRemoteObjectProxy($className, $adapter),
             $shared
         );
     }

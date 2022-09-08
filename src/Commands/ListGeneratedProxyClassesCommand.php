@@ -40,9 +40,7 @@ class ListGeneratedProxyClassesCommand extends Command
 
         $this->option('memory-limit') and ini_set('memory_limit', $this->option('memory-limit'));
 
-        $this->laravel->bind(Parser::class, function () {
-            return (new ParserFactory())->create((int) $this->option('parse-mode'));
-        });
+        $this->laravel->bind(Parser::class, fn () => (new ParserFactory())->create((int) $this->option('parse-mode')));
     }
 
     public function handle(Parser $parser, NodeFinder $nodeFinder): int

@@ -18,17 +18,13 @@ use Illuminate\Support\Facades\Route;
 use ProxyManager\Proxy\RemoteObjectInterface;
 
 beforeEach(function () {
-    Route::get('book/{id}', function ($id) {
-        return response()->json([
-            'detail' => "Remote book #$id",
-        ]);
-    });
+    Route::get('book/{id}', fn ($id) => response()->json([
+        'detail' => "Remote book #$id",
+    ]));
 
-    Route::get('author/{id}', function ($id) {
-        return response()->json([
-            'detail' => "Remote author #$id",
-        ]);
-    });
+    Route::get('author/{id}', fn ($id) => response()->json([
+        'detail' => "Remote author #$id",
+    ]));
 });
 
 it('will return `RemoteObject` proxy', function () {

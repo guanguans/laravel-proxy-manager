@@ -51,6 +51,7 @@ return static function (RectorConfig $rectorConfig): void {
         '**/Source/*',
         '**/Expected/*',
         '**/Expected*',
+        __DIR__.'/tests/stub'
     ]);
 
     $rectorConfig->sets([

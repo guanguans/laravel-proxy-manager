@@ -28,7 +28,7 @@ class ClearGeneratedProxyClassesCommand extends Command
         }
 
         $files = glob(Str::of($proxiesDir)->finish('/')->append('*.php'));
-        $this->info(sprintf('Found %d generated proxy classes', count($files)));
+        $this->info(sprintf('Found %d generated proxy classes', is_countable($files) ? count($files) : 0));
         $this->info('Clearing generated proxy classes...');
 
         foreach ($files as $file) {

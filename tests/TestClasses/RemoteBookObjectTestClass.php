@@ -10,15 +10,18 @@
 
 namespace Guanguans\LaravelProxyManagerTests\TestClasses;
 
+use function Pest\Laravel\get;
+use function Pest\Laravel\getJson;
+
 class RemoteBookObjectTestClass extends AbstractLocalBookObjectTestClass
 {
     public function book($id)
     {
-        return \Pest\Laravel\getJson("/book/$id")->json();
+        return getJson("/book/$id")->json();
     }
 
     public function author($id)
     {
-        return \Pest\Laravel\get("/author/$id")->json();
+        return get("/author/$id")->json();
     }
 }

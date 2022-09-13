@@ -15,8 +15,14 @@ use Illuminate\Support\Str;
 
 class ClearGeneratedProxyClassesCommand extends Command
 {
+    /**
+     * @var string
+     */
     protected $signature = 'proxy:clear';
 
+    /**
+     * @var string
+     */
     protected $description = 'Clear generated proxy classes';
 
     public function handle(): int

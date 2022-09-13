@@ -36,7 +36,7 @@ use Illuminate\Support\Facades\Facade;
  */
 class ProxyManager extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return \Guanguans\LaravelProxyManager\ProxyManager::class;
     }

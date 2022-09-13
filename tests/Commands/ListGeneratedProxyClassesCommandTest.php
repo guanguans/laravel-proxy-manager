@@ -15,19 +15,21 @@ use Guanguans\LaravelProxyManager\Facades\NullObjectFactory;
 use Guanguans\LaravelProxyManagerTests\TestClasses\NullObjectTestClass;
 use Illuminate\Support\Str;
 
-it('will output `Proxy classes directory not found.`', function () {
+use function Pest\Laravel\artisan;
+
+it('will output `Proxy classes directory not found.`', function (): void {
     config([
         'proxy-manager.generated_proxies_dir' => __DIR__.DIRECTORY_SEPARATOR
                                                  .'..'.DIRECTORY_SEPARATOR
                                                  .Str::random().DIRECTORY_SEPARATOR,
     ]);
 
-    \Pest\Laravel\artisan(ListGeneratedProxyClassesCommand::class)
+    artisan(ListGeneratedProxyClassesCommand::class)
         ->expectsOutput('Proxy classes directory not found.')
         ->assertSuccessful();
 });
 
-it('will output `No generated proxy classes found.`', function () {
+it('will output `No generated proxy classes found.`', function (): void {
     config([
         'proxy-manager.generated_proxies_dir' => __DIR__.DIRECTORY_SEPARATOR
                                                  .'..'.DIRECTORY_SEPARATOR
@@ -35,12 +37,12 @@ it('will output `No generated proxy classes found.`', function () {
                                                  .'proxies',
     ]);
 
-    \Pest\Laravel\artisan(ListGeneratedProxyClassesCommand::class)
+    artisan(ListGeneratedProxyClassesCommand::class)
         ->expectsOutput('No generated proxy classes found.')
         ->assertSuccessful();
 });
 
-it('will output table', function () {
+it('will output table', function (): void {
     config([
         'proxy-manager.generated_proxies_dir' => __DIR__.DIRECTORY_SEPARATOR
                                                  .'..'.DIRECTORY_SEPARATOR
@@ -48,9 +50,9 @@ it('will output table', function () {
                                                  .'proxies',
     ]);
 
-    NullObjectFactory::createProxy(NullObjectTestClass::class)->getId();
+    NullObjectFactory::createProxy(NullObjectTestClass::class);
 
-    \Pest\Laravel\artisan(ListGeneratedProxyClassesCommand::class)
+    artisan(ListGeneratedProxyClassesCommand::class)
         ->expectsTable([], [])
         ->assertSuccessful();
 });

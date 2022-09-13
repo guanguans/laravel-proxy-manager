@@ -22,17 +22,17 @@ use UpdateHelper\UpdateHelperInterface;
 
 class UpdateHelper implements UpdateHelperInterface
 {
-    public function check(\UpdateHelper\UpdateHelper $helper)
+    public function check(\UpdateHelper\UpdateHelper $updateHelper): void
     {
-        $helper->write('The guanguans/laravel-proxy-manager update checking...');
+        $updateHelper->write('The guanguans/laravel-proxy-manager update checking...');
 
-        if (! $helper->hasAsDependency('nikic/php-parser')) {
+        if (! $updateHelper->hasAsDependency('nikic/php-parser')) {
             /** @var \Composer\IO\ConsoleIO $io */
-            $io = $helper->getIo();
+            $io = $updateHelper->getIo();
             $io->warning('The `nikic/php-parser` required to use `proxy:list` command.');
             $io->warning('You can install it with "composer require nikic/php-parser".');
         }
 
-        $helper->write('The guanguans/laravel-proxy-manager update checking done.');
+        $updateHelper->write('The guanguans/laravel-proxy-manager update checking done.');
     }
 }

@@ -14,30 +14,30 @@ use Guanguans\LaravelProxyManager\Facades\AccessInterceptorValueHolderFactory;
 use Guanguans\LaravelProxyManagerTests\TestClasses\AccessInterceptorValueHolderTestClass;
 use ProxyManager\Proxy\AccessInterceptorValueHolderInterface;
 
-beforeEach(function () {
+beforeEach(function (): void {
     ob_get_contents() and ob_clean() and ob_start();
 });
 
-afterEach(function () {
+afterEach(function (): void {
     ob_clean();
 });
 
-it('will return `AccessInterceptorValueHolder` proxy', function () {
-    $proxy = AccessInterceptorValueHolderFactory::createProxy(
+it('will return `AccessInterceptorValueHolder` proxy', function (): void {
+    $accessInterceptorValueHolder = AccessInterceptorValueHolderFactory::createProxy(
         new AccessInterceptorValueHolderTestClass(),
         [
-            'execute' => function () {
+            'execute' => function (): void {
                 echo "before-execute\n";
             },
         ],
         [
-            'execute' => function () {
+            'execute' => function (): void {
                 echo 'after-execute';
             },
         ]
     );
 
-    expect($proxy)
+    expect($accessInterceptorValueHolder)
         ->toBeInstanceOf(AccessInterceptorValueHolderTestClass::class)
         ->toBeInstanceOf(AccessInterceptorValueHolderInterface::class)
         ->execute()

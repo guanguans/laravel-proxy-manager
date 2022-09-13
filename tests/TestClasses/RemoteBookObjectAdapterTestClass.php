@@ -14,9 +14,14 @@ use ProxyManager\Factory\RemoteObject\AdapterInterface;
 
 class RemoteBookObjectAdapterTestClass implements AdapterInterface
 {
-    public function __construct(RemoteBookObjectTestClass $remoteObjectTestClass)
+    /**
+     * @var \Guanguans\LaravelProxyManagerTests\TestClasses\RemoteBookObjectTestClass
+     */
+    public $remoteObjectTestClass;
+
+    public function __construct(RemoteBookObjectTestClass $remoteBookObjectTestClass)
     {
-        $this->remoteObjectTestClass = $remoteObjectTestClass;
+        $this->remoteObjectTestClass = $remoteBookObjectTestClass;
     }
 
     public function call(string $wrappedClass, string $method, array $params = [])

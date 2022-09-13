@@ -8,6 +8,15 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
+use ProxyManager\GeneratorStrategy\FileWriterGeneratorStrategy;
+
+/*
+ * This file is part of the guanguans/laravel-proxy-manager.
+ *
+ * (c) guanguans <ityaozm@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
 return [
     /*
      * The proxy manager will use this directory to store generated proxies.
@@ -30,5 +39,5 @@ return [
      * ]
      * ```
      */
-    'generator_strategy_class' => env('PROXY_MANAGER_GENERATOR_STRATEGY_CLASS', \ProxyManager\GeneratorStrategy\FileWriterGeneratorStrategy::class),
+    'generator_strategy_class' => env('PROXY_MANAGER_GENERATOR_STRATEGY_CLASS', FileWriterGeneratorStrategy::class),
 ];

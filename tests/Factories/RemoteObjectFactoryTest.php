@@ -15,11 +15,11 @@ use Nyholm\NSA;
 use ProxyManager\ProxyGenerator\ProxyGeneratorInterface;
 use RuntimeException;
 
-it('will return instance of `ProxyGeneratorInterface`', function () {
+it('will return instance of `ProxyGeneratorInterface`', function (): void {
     expect(NSA::invokeMethod(new RemoteObjectFactory(), 'getGenerator'))
         ->toBeInstanceOf(ProxyGeneratorInterface::class);
 });
 
-it('will throw `RuntimeException`', function () {
+it('will throw `RuntimeException`', function (): void {
     expect(new RemoteObjectFactory())->createProxy(AbstractLocalBookObjectTestClass::class);
 })->throws(RuntimeException::class, 'No adapter set');

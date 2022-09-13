@@ -8,6 +8,16 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
+use PhpCsFixer\Config;
+use PhpCsFixer\Finder;
+
+/**
+ * This file is part of the guanguans/laravel-proxy-manager.
+ *
+ * (c) guanguans <ityaozm@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
 $header = <<<EOF
 This file is part of the guanguans/laravel-proxy-manager.
 
@@ -16,7 +26,7 @@ This file is part of the guanguans/laravel-proxy-manager.
 This source file is subject to the MIT license that is bundled.
 EOF;
 
-$finder = PhpCsFixer\Finder::create()
+$finder = Finder::create()
     ->in([
         __DIR__.'/config',
         __DIR__.'/src',
@@ -24,6 +34,7 @@ $finder = PhpCsFixer\Finder::create()
     ])
     ->append([
         __DIR__.'/.php-cs-fixer.php',
+        __DIR__.'/rector.php',
     ])
     ->exclude([
         '.github/',
@@ -40,7 +51,7 @@ $finder = PhpCsFixer\Finder::create()
     ->ignoreDotFiles(true)
     ->ignoreVCS(true);
 
-return (new PhpCsFixer\Config())
+return (new Config())
     ->setRules([
         // '@PSR12' => true,
         '@Symfony' => true,

@@ -24,15 +24,21 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ListGeneratedProxyClassesCommand extends Command
 {
+    /**
+     * @var string
+     */
     protected $signature = 'proxy:list
                             {--m|parse-mode=1 : The mode(1,2,3,4) to use for the PHP parser}
                             {--M|memory-limit= : The memory limit to use for the PHP parser}';
 
+    /**
+     * @var string
+     */
     protected $description = 'List generated proxy classes.';
 
-    protected function initialize(InputInterface $input, OutputInterface $output)
+    protected function initialize(InputInterface $input, OutputInterface $output): void
     {
-        if (! class_exists('PhpParser\ParserFactory')) {
+        if (! class_exists(ParserFactory::class)) {
             $this->error('The "nikic/php-parser" package is required to use this command.');
             $this->error('You can install it with "composer require nikic/php-parser".');
             exit(static::INVALID);

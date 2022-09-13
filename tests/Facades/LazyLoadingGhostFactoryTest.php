@@ -14,13 +14,13 @@ use Guanguans\LaravelProxyManager\Facades\LazyLoadingGhostFactory;
 use Guanguans\LaravelProxyManagerTests\TestClasses\LazyLoadingGhostTestClass;
 use ProxyManager\Proxy\GhostObjectInterface;
 
-it('will return `LazyLoadingGhost` proxy', function () {
+it('will return `LazyLoadingGhost` proxy', function (): void {
     $id = 1;
     $name = 'name';
 
     $proxy = LazyLoadingGhostFactory::createProxy(
         LazyLoadingGhostTestClass::class,
-        function (GhostObjectInterface $proxy, string $method, array $parameters, &$initializer, array $properties) use ($id, $name) {
+        function (GhostObjectInterface $ghostObject, string $method, array $parameters, &$initializer, array $properties) use ($id, $name): bool {
             $initializer = null;
             $properties["\0Guanguans\\LaravelProxyManagerTests\\TestClasses\\LazyLoadingGhostTestClass\0id"] = $id;
             $properties["\0Guanguans\\LaravelProxyManagerTests\\TestClasses\\LazyLoadingGhostTestClass\0name"] = $name;

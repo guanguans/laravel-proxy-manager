@@ -40,9 +40,9 @@ class ProxyManagerServiceProvider extends PackageServiceProvider
             ]);
     }
 
-    public function packageRegistered()
+    public function packageRegistered(): void
     {
-        $this->app->bind(FileLocatorInterface::class, function () {
+        $this->app->bind(FileLocatorInterface::class, static function (): FileLocator {
             if (
                 ! file_exists($proxiesDirectory = config('proxy-manager.generated_proxies_dir'))
                 && ! mkdir($proxiesDirectory, config('proxy-manager.generated_proxies_dir_mode'), true)
@@ -54,7 +54,7 @@ class ProxyManagerServiceProvider extends PackageServiceProvider
             return new FileLocator($proxiesDirectory);
         });
 
-        $this->app->singleton(Configuration::class, function (Container $container) {
+        $this->app->singleton(Configuration::class, static function (Container $container): Configuration {
             $configuration = new Configuration();
             $configuration->setGeneratorStrategy($container->make(config('proxy-manager.generator_strategy_class')));
             $configuration->setProxiesTargetDir(config('proxy-manager.generated_proxies_dir'));
@@ -72,7 +72,7 @@ class ProxyManagerServiceProvider extends PackageServiceProvider
         $this->app->singleton(ProxyManager::class);
     }
 
-    public function packageBooted()
+    public function packageBooted(): void
     {
         if (class_exists(AboutCommand::class)) {
             AboutCommand::add('Laravel Proxy Manager', [

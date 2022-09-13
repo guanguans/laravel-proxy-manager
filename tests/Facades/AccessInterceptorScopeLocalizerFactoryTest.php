@@ -14,25 +14,25 @@ use Guanguans\LaravelProxyManager\Facades\AccessInterceptorScopeLocalizerFactory
 use Guanguans\LaravelProxyManagerTests\TestClasses\AccessInterceptorScopeLocalizerTestClass;
 use ProxyManager\Proxy\AccessInterceptorInterface;
 
-beforeEach(function () {
+beforeEach(function (): void {
     ob_get_contents() and ob_clean() and ob_start();
 });
 
-afterEach(function () {
+afterEach(function (): void {
     ob_clean();
 });
 
-it('will return `AccessInterceptorScopeLocalizer` proxy', function () {
+it('will return `AccessInterceptorScopeLocalizer` proxy', function (): void {
     $proxy = AccessInterceptorScopeLocalizerFactory::createProxy(
         $accessInterceptorScopeLocalizer = new AccessInterceptorScopeLocalizerTestClass(),
         [
-            'fluentMethod' => static function (AccessInterceptorInterface $proxy, AccessInterceptorScopeLocalizerTestClass $realInstance) {
-                echo "before-fluentMethod: #$realInstance->counter\n";
+            'fluentMethod' => static function (AccessInterceptorInterface $accessInterceptor, AccessInterceptorScopeLocalizerTestClass $accessInterceptorScopeLocalizerTestClass): void {
+                echo "before-fluentMethod: #$accessInterceptorScopeLocalizerTestClass->counter\n";
             },
         ],
         [
-            'fluentMethod' => static function (AccessInterceptorInterface $proxy, AccessInterceptorScopeLocalizerTestClass $realInstance) {
-                echo "after-fluentMethod: #$realInstance->counter\n";
+            'fluentMethod' => static function (AccessInterceptorInterface $accessInterceptor, AccessInterceptorScopeLocalizerTestClass $accessInterceptorScopeLocalizerTestClass): void {
+                echo "after-fluentMethod: #$accessInterceptorScopeLocalizerTestClass->counter\n";
             },
         ]
     );

@@ -17,10 +17,10 @@ use Guanguans\LaravelProxyManagerTests\TestClasses\ValueHolderTestClass;
 use ProxyManager\Proxy\VirtualProxyInterface;
 use SebastianBergmann\Timer\Timer;
 
-it('will return `LazyLoadingValueHolder` proxy', function () {
+it('will return `LazyLoadingValueHolder` proxy', function (): void {
     $proxy = LazyLoadingValueHolderFactory::createProxy(
         ValueHolderTestClass::class,
-        function (?object &$wrappedObject, ?VirtualProxyInterface $proxy, string $method, array $parameters, ?Closure &$initializer) {
+        function (?object &$wrappedObject, ?VirtualProxyInterface $virtualProxy, string $method, array $parameters, ?Closure &$initializer): bool {
             $initializer = null;
             $wrappedObject = new ValueHolderTestClass();
 
@@ -33,7 +33,7 @@ it('will return `LazyLoadingValueHolder` proxy', function () {
         ->toBeInstanceOf(VirtualProxyInterface::class);
 });
 
-it('will actually initialized when the proxy class calls the method', function () {
+it('will actually initialized when the proxy class calls the method', function (): void {
     $timer = new Timer();
     $timer->start();
     $timer->start();
@@ -42,7 +42,7 @@ it('will actually initialized when the proxy class calls the method', function (
     $sleepMicroseconds = 100000;
     $proxy = LazyLoadingValueHolderFactory::createProxy(
         LazyLoadingValueHolderTestClass::class,
-        function (?object &$wrappedObject, ?VirtualProxyInterface $proxy, string $method, array $parameters, ?Closure &$initializer) use ($sleepMicroseconds) {
+        function (?object &$wrappedObject, ?VirtualProxyInterface $virtualProxy, string $method, array $parameters, ?Closure &$initializer) use ($sleepMicroseconds): bool {
             $initializer = null;
             $wrappedObject = new LazyLoadingValueHolderTestClass($sleepMicroseconds);
 

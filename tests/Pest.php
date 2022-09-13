@@ -11,7 +11,7 @@
 namespace Guanguans\LaravelProxyManagerTests;
 
 uses(TestCase::class)
-    ->beforeEach(function () {
+    ->beforeEach(function (): void {
     })
     ->in(__DIR__);
 

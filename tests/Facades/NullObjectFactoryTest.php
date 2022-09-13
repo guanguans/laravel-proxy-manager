@@ -13,19 +13,23 @@ namespace Guanguans\LaravelProxyManagerTests\Facades;
 use Guanguans\LaravelProxyManager\Facades\NullObjectFactory;
 use Guanguans\LaravelProxyManagerTests\TestClasses\NullObjectTestClass;
 use ProxyManager\Proxy\NullObjectInterface;
+use TypeError;
 
-it('will return `NullObject` proxy', function () {
+it('will return `NullObject` proxy', function (): void {
     $proxy = NullObjectFactory::createProxy(NullObjectTestClass::class);
     expect($proxy)
         ->toBeInstanceOf(NullObjectTestClass::class)
-        ->toBeInstanceOf(NullObjectInterface::class)
-        ->and($proxy->getId())
-        ->toBeNull();
+        ->toBeInstanceOf(NullObjectInterface::class);
 
     $proxy = NullObjectFactory::createProxy(new NullObjectTestClass(1));
     expect($proxy)
         ->toBeInstanceOf(NullObjectTestClass::class)
-        ->toBeInstanceOf(NullObjectInterface::class)
+        ->toBeInstanceOf(NullObjectInterface::class);
+});
+
+it('will throw TypeError', function (): void {
+    $proxy = NullObjectFactory::createProxy(new NullObjectTestClass(1));
+    expect($proxy)
         ->and($proxy->getId())
         ->toBeNull();
-});
+})->throws(TypeError::class);

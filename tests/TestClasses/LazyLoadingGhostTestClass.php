@@ -12,9 +12,9 @@ namespace Guanguans\LaravelProxyManagerTests\TestClasses;
 
 class LazyLoadingGhostTestClass extends ValueHolderTestClass
 {
-    private $id;
+    private ?int $id = null;
 
-    private $name;
+    private ?string $name = null;
 
     public function __construct(?int $id = null, ?string $name = null)
     {
@@ -22,12 +22,12 @@ class LazyLoadingGhostTestClass extends ValueHolderTestClass
         $this->name = $name;
     }
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }

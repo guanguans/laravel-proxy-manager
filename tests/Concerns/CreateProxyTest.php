@@ -25,7 +25,7 @@ use ProxyManager\Proxy\NullObjectInterface;
 use ProxyManager\Proxy\RemoteObjectInterface;
 use ProxyManager\Proxy\VirtualProxyInterface;
 
-it('will return the proxy instance', function () {
+it('will return the proxy instance', function (): void {
     expect(new ProxyManager(app()))
         ->createAccessInterceptorScopeLocalizerProxy(new AccessInterceptorScopeLocalizerTestClass())
         ->toBeInstanceOf(AccessInterceptorScopeLocalizerTestClass::class)

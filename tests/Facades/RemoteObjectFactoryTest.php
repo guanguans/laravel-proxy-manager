@@ -17,17 +17,17 @@ use Guanguans\LaravelProxyManagerTests\TestClasses\RemoteBookObjectTestClass;
 use Illuminate\Support\Facades\Route;
 use ProxyManager\Proxy\RemoteObjectInterface;
 
-beforeEach(function () {
-    Route::get('book/{id}', fn ($id) => response()->json([
+beforeEach(function (): void {
+    Route::get('book/{id}', static fn ($id) => response()->json([
         'detail' => "Remote book #$id",
     ]));
 
-    Route::get('author/{id}', fn ($id) => response()->json([
+    Route::get('author/{id}', static fn ($id) => response()->json([
         'detail' => "Remote author #$id",
     ]));
 });
 
-it('will return `RemoteObject` proxy', function () {
+it('will return `RemoteObject` proxy', function (): void {
     $proxy = RemoteObjectFactory::setAdapter(new RemoteBookObjectAdapterTestClass($remoteObjectTestClass = new RemoteBookObjectTestClass()))
         ->createProxy(AbstractLocalBookObjectTestClass::class);
 

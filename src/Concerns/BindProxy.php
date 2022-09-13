@@ -32,7 +32,7 @@ trait BindProxy
             $concrete = fn ($container, $parameters = []) => $this->container->build($className);
         }
 
-        $initializer = function (?object &$wrappedObject, VirtualProxyInterface $virtualProxy, string $method, array $parameters, ?Closure &$initializer) use ($concrete) {
+        $initializer = function (?object &$wrappedObject, VirtualProxyInterface $virtualProxy, string $method, array $parameters, ?Closure &$initializer) use ($concrete): bool {
             $initializer = null;
             $wrappedObject = $concrete($this->container, []);
 

@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Facade;
  */
 class AccessInterceptorValueHolderFactory extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return \ProxyManager\Factory\AccessInterceptorValueHolderFactory::class;
     }

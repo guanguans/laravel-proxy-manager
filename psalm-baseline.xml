@@ -31,4 +31,9 @@
       <code>$container</code>
     </UnusedClosureParam>
   </file>
+  <file src="src/UpdateHelper.php">
+    <ParamNameMismatch occurrences="1">
+      <code>$updateHelper</code>
+    </ParamNameMismatch>
+  </file>
 </files>

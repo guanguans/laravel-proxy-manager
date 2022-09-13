@@ -24,8 +24,9 @@ use ProxyManager\Proxy\AccessInterceptorValueHolderInterface;
 use ProxyManager\Proxy\GhostObjectInterface;
 use ProxyManager\Proxy\RemoteObjectInterface;
 use ProxyManager\Proxy\ValueHolderInterface;
+use TypeError;
 
-it('will not return for `extendToAccessInterceptorScopeLocalizerProxy`', function () {
+it('will not return for `extendToAccessInterceptorScopeLocalizerProxy`', function (): void {
     expect(app(ProxyManager::class))
         ->extendToAccessInterceptorScopeLocalizerProxy(
             AccessInterceptorScopeLocalizerTestClass::class,
@@ -46,7 +47,7 @@ it('will not return for `extendToAccessInterceptorScopeLocalizerProxy`', functio
         ->toBeInstanceOf(AccessInterceptorInterface::class);
 });
 
-it('will not return for `extendToAccessInterceptorValueHolderProxy`', function () {
+it('will not return for `extendToAccessInterceptorValueHolderProxy`', function (): void {
     expect(app(ProxyManager::class))
         ->extendToAccessInterceptorValueHolderProxy(
             AccessInterceptorValueHolderTestClass::class,
@@ -67,7 +68,7 @@ it('will not return for `extendToAccessInterceptorValueHolderProxy`', function (
         ->toBeInstanceOf(AccessInterceptorValueHolderInterface::class);
 });
 
-it('will not return for `extendToLazyLoadingGhostFactoryProxy`', function () {
+it('will not return for `extendToLazyLoadingGhostFactoryProxy`', function (): void {
     expect(app(ProxyManager::class))
         ->extendToLazyLoadingGhostFactoryProxy(
             LazyLoadingGhostTestClass::class,
@@ -90,7 +91,7 @@ it('will not return for `extendToLazyLoadingGhostFactoryProxy`', function () {
         ->toBeInstanceOf(GhostObjectInterface::class);
 });
 
-it('will not return for `extendToLazyLoadingValueHolderProxy`', function () {
+it('will not return for `extendToLazyLoadingValueHolderProxy`', function (): void {
     expect(app(ProxyManager::class))
         ->extendToLazyLoadingValueHolderProxy(
             ValueHolderTestClass::class,
@@ -108,7 +109,7 @@ it('will not return for `extendToLazyLoadingValueHolderProxy`', function () {
         ->toBeInstanceOf(ValueHolderInterface::class);
 });
 
-it('will not return for `extendToNullObjectProxy`', function () {
+it('will not return for `extendToNullObjectProxy`', function (): void {
     expect(app(ProxyManager::class))
         ->extendToNullObjectProxy(NullObjectTestClass::class)
         ->toBeNull()
@@ -116,9 +117,9 @@ it('will not return for `extendToNullObjectProxy`', function () {
         ->toBeInstanceOf(NullObjectTestClass::class)
         ->getId()
         ->toBeNull();
-});
+})->throws(TypeError::class);
 
-it('will not return for `extendToRemoteObjectProxy`', function () {
+it('will not return for `extendToRemoteObjectProxy`', function (): void {
     expect(app(ProxyManager::class))
         ->extendToRemoteObjectProxy(LocalBookObjectTestClass::class, new RemoteNullObjectAdapterTestClass())
         ->toBeNull()

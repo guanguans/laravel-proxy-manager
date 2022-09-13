@@ -12,6 +12,9 @@ namespace Guanguans\LaravelProxyManagerTests\TestClasses;
 
 abstract class AbstractLocalBookObjectTestClass extends ValueHolderTestClass
 {
+    /**
+     * @return array{detail: string}
+     */
     public function book($id)
     {
         return [

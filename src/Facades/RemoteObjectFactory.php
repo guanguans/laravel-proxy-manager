@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Facade;
  */
 class RemoteObjectFactory extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return \Guanguans\LaravelProxyManager\Factories\RemoteObjectFactory::class;
     }

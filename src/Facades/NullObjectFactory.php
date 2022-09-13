@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Facade;
  */
 class NullObjectFactory extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return \ProxyManager\Factory\NullObjectFactory::class;
     }

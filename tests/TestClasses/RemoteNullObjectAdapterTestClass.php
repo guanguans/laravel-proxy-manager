@@ -14,7 +14,7 @@ use ProxyManager\Factory\RemoteObject\AdapterInterface;
 
 class RemoteNullObjectAdapterTestClass implements AdapterInterface
 {
-    public function call(string $wrappedClass, string $method, array $params = [])
+    public function call(string $wrappedClass, string $method, array $params = []): void
     {
     }
 }

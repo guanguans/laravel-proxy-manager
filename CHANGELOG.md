@@ -2,6 +2,14 @@
 
 All notable changes to `guanguans/laravel-proxy-manager` will be documented in this file.
 
+## v1.0.12 - 2022-09-13
+
+### What's Changed
+
+- Bump actions/checkout from 2 to 3 by @dependabot in https://github.com/guanguans/laravel-proxy-manager/pull/3
+
+**Full Changelog**: https://github.com/guanguans/laravel-proxy-manager/compare/v1.0.11...v1.0.12
+
 ## v1.0.11 - 2022-09-08
 
 **Full Changelog**: https://github.com/guanguans/laravel-proxy-manager/compare/v1.0.10...v1.0.11

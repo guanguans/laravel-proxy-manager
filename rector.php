@@ -29,6 +29,8 @@ use Rector\DeadCode\Rector\Assign\RemoveUnusedVariableAssignRector;
 use Rector\DeadCode\Rector\MethodCall\RemoveEmptyMethodCallRector;
 use Rector\EarlyReturn\Rector\If_\ChangeAndIfToEarlyReturnRector;
 use Rector\EarlyReturn\Rector\Return_\ReturnBinaryOrToEarlyReturnRector;
+use Rector\Laravel\Set\LaravelLevelSetList;
+use Rector\Laravel\Set\LaravelSetList;
 use Rector\Php56\Rector\FunctionLike\AddDefaultValueForUndefinedVariableRector;
 use Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector;
 use Rector\PHPUnit\Set\PHPUnitLevelSetList;
@@ -83,6 +85,10 @@ return static function (RectorConfig $rectorConfig): void {
         '**/Expected/*',
         '**/Expected*',
         __DIR__.'/tests/stub',
+
+        // __DIR__.'/src/Commands/ClearGeneratedProxyClassesCommand.php',
+        // __DIR__.'/src/Commands/ListGeneratedProxyClassesCommand.php',
+        // __DIR__.'/src/ProxyManagerServiceProvider.php',
     ]);
 
     $rectorConfig->sets([
@@ -100,6 +106,13 @@ return static function (RectorConfig $rectorConfig): void {
         SetList::TYPE_DECLARATION,
         SetList::TYPE_DECLARATION_STRICT,
         SetList::EARLY_RETURN,
+
+        // LaravelLevelSetList::UP_TO_LARAVEL_70,
+        // LaravelSetList::ARRAY_STR_FUNCTIONS_TO_STATIC_CALL,
+        // LaravelSetList::LARAVEL_STATIC_TO_INJECTION,
+        // LaravelSetList::LARAVEL_CODE_QUALITY,
+        // LaravelSetList::LARAVEL_ARRAY_STR_FUNCTION_TO_STATIC_CALL,
+        // LaravelSetList::LARAVEL_LEGACY_FACTORIES_TO_CLASSES,
 
         PHPUnitLevelSetList::UP_TO_PHPUNIT_80,
         // PHPUnitSetList::PHPUNIT80_DMS,

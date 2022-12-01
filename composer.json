@@ -61,7 +61,7 @@
         "povils/phpmnd": "^2.5 || ^3.0",
         "rector/rector": "^0.14",
         "roave/security-advisories": "dev-latest",
-        "vimeo/psalm": "^4.16"
+        "vimeo/psalm": "^4.16 || ^5.0"
     },
     "replace": {},
     "conflict": {},

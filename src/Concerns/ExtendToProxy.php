@@ -10,7 +10,6 @@
 
 namespace Guanguans\LaravelProxyManager\Concerns;
 
-use Closure;
 use Illuminate\Container\Container;
 use ProxyManager\Factory\RemoteObject\AdapterInterface;
 
@@ -32,7 +31,7 @@ trait ExtendToProxy
         );
     }
 
-    public function extendToLazyLoadingGhostFactoryProxy(string $abstract, Closure $initializer, array $proxyOptions = []): void
+    public function extendToLazyLoadingGhostFactoryProxy(string $abstract, \Closure $initializer, array $proxyOptions = []): void
     {
         $this->container->extend(
             $abstract,
@@ -40,7 +39,7 @@ trait ExtendToProxy
         );
     }
 
-    public function extendToLazyLoadingValueHolderProxy(string $abstract, Closure $initializer, array $proxyOptions = []): void
+    public function extendToLazyLoadingValueHolderProxy(string $abstract, \Closure $initializer, array $proxyOptions = []): void
     {
         $this->container->extend(
             $abstract,

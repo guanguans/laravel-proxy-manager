@@ -10,7 +10,6 @@
 
 namespace Guanguans\LaravelProxyManager\Factories;
 
-use OutOfBoundsException;
 use ProxyManager\Configuration;
 use ProxyManager\Factory\AbstractBaseFactory;
 use ProxyManager\Factory\RemoteObject\AdapterInterface;
@@ -19,7 +18,6 @@ use ProxyManager\ProxyGenerator\ProxyGeneratorInterface;
 use ProxyManager\ProxyGenerator\RemoteObjectGenerator;
 use ProxyManager\Signature\Exception\InvalidSignatureException;
 use ProxyManager\Signature\Exception\MissingSignatureException;
-use RuntimeException;
 
 /**
  * Factory responsible of producing remote proxy objects.
@@ -43,8 +41,8 @@ class RemoteObjectFactory extends AbstractBaseFactory
      *
      * @throws InvalidSignatureException
      * @throws MissingSignatureException
-     * @throws OutOfBoundsException
-     * @throws RuntimeException
+     * @throws \OutOfBoundsException
+     * @throws \RuntimeException
      *
      * @psalm-template RealObjectType of object
      *
@@ -63,7 +61,7 @@ class RemoteObjectFactory extends AbstractBaseFactory
 
         $adapter = $adapter ?: $this->adapter;
         if (! $adapter instanceof AdapterInterface) {
-            throw new RuntimeException('No adapter set');
+            throw new \RuntimeException('No adapter set');
         }
 
         /*

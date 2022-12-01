@@ -17,7 +17,6 @@ use Guanguans\LaravelProxyManager\Facades\LazyLoadingGhostFactory;
 use Guanguans\LaravelProxyManager\Facades\LazyLoadingValueHolderFactory;
 use Guanguans\LaravelProxyManager\Facades\NullObjectFactory;
 use Guanguans\LaravelProxyManager\Facades\RemoteObjectFactory;
-use OutOfBoundsException;
 use ProxyManager\Factory\RemoteObject\AdapterInterface;
 use ProxyManager\Proxy\AccessInterceptorInterface;
 use ProxyManager\Proxy\AccessInterceptorValueHolderInterface;
@@ -28,20 +27,19 @@ use ProxyManager\Proxy\ValueHolderInterface;
 use ProxyManager\Proxy\VirtualProxyInterface;
 use ProxyManager\Signature\Exception\InvalidSignatureException;
 use ProxyManager\Signature\Exception\MissingSignatureException;
-use RuntimeException;
 
 trait CreateProxy
 {
     /**
-     * @param object                 $instance           the object to be localized within the access interceptor
-     * @param array<string, Closure> $prefixInterceptors an array (indexed by method name) of interceptor closures to be called
-     *                                                   before method logic is executed
-     * @param array<string, Closure> $suffixInterceptors an array (indexed by method name) of interceptor closures to be called
-     *                                                   after method logic is executed
+     * @param object                  $instance           the object to be localized within the access interceptor
+     * @param array<string, \Closure> $prefixInterceptors an array (indexed by method name) of interceptor closures to be called
+     *                                                    before method logic is executed
+     * @param array<string, \Closure> $suffixInterceptors an array (indexed by method name) of interceptor closures to be called
+     *                                                    after method logic is executed
      *
      * @throws InvalidSignatureException
      * @throws MissingSignatureException
-     * @throws OutOfBoundsException
+     * @throws \OutOfBoundsException
      *
      * @psalm-template RealObjectType of object
      *
@@ -73,15 +71,15 @@ trait CreateProxy
     }
 
     /**
-     * @param object                 $instance           the object to be wrapped within the value holder
-     * @param array<string, Closure> $prefixInterceptors an array (indexed by method name) of interceptor closures to be called
-     *                                                   before method logic is executed
-     * @param array<string, Closure> $suffixInterceptors an array (indexed by method name) of interceptor closures to be called
-     *                                                   after method logic is executed
+     * @param object                  $instance           the object to be wrapped within the value holder
+     * @param array<string, \Closure> $prefixInterceptors an array (indexed by method name) of interceptor closures to be called
+     *                                                    before method logic is executed
+     * @param array<string, \Closure> $suffixInterceptors an array (indexed by method name) of interceptor closures to be called
+     *                                                    after method logic is executed
      *
      * @throws InvalidSignatureException
      * @throws MissingSignatureException
-     * @throws OutOfBoundsException
+     * @throws \OutOfBoundsException
      *
      * @psalm-template RealObjectType of object
      *
@@ -120,9 +118,9 @@ trait CreateProxy
      *
      * @see https://github.com/Ocramius/ProxyManager/blob/master/docs/lazy-loading-ghost-object.md
      *
-     * @param string  $className   name of the class to be proxied
-     * @param Closure $initializer initializer to be passed to the proxy. The initializer closure should have following
-     *                             signature:
+     * @param string   $className   name of the class to be proxied
+     * @param \Closure $initializer initializer to be passed to the proxy. The initializer closure should have following
+     *                              signature:
      *
      *                              <code>
      *                              $initializer = function (
@@ -149,7 +147,7 @@ trait CreateProxy
      *
      * @throws MissingSignatureException
      * @throws InvalidSignatureException
-     * @throws OutOfBoundsException
+     * @throws \OutOfBoundsException
      *
      * @psalm-template RealObjectType as object
      *
@@ -168,7 +166,7 @@ trait CreateProxy
      * @psalm-suppress MixedInferredReturnType We ignore type checks here, since `staticProxyConstructor` is not
      *                                         interfaced (by design)
      */
-    public function createLazyLoadingGhostFactoryProxy(string $className, Closure $initializer, array $proxyOptions = []): GhostObjectInterface
+    public function createLazyLoadingGhostFactoryProxy(string $className, \Closure $initializer, array $proxyOptions = []): GhostObjectInterface
     {
         return LazyLoadingGhostFactory::createProxy($className, $initializer, $proxyOptions);
     }
@@ -192,7 +190,7 @@ trait CreateProxy
      * @psalm-suppress MixedInferredReturnType We ignore type checks here, since `staticProxyConstructor` is not
      *                                         interfaced (by design)
      */
-    public function createLazyLoadingValueHolderProxy(string $className, Closure $initializer, array $proxyOptions = []): VirtualProxyInterface
+    public function createLazyLoadingValueHolderProxy(string $className, \Closure $initializer, array $proxyOptions = []): VirtualProxyInterface
     {
         return LazyLoadingValueHolderFactory::createProxy($className, $initializer, $proxyOptions);
     }
@@ -202,7 +200,7 @@ trait CreateProxy
      *
      * @throws InvalidSignatureException
      * @throws MissingSignatureException
-     * @throws OutOfBoundsException
+     * @throws \OutOfBoundsException
      *
      * @psalm-template RealObjectType of object
      *
@@ -223,8 +221,8 @@ trait CreateProxy
      *
      * @throws InvalidSignatureException
      * @throws MissingSignatureException
-     * @throws OutOfBoundsException
-     * @throws RuntimeException
+     * @throws \OutOfBoundsException
+     * @throws \RuntimeException
      *
      * @psalm-template RealObjectType of object
      *

@@ -10,7 +10,6 @@
 
 namespace Guanguans\LaravelProxyManagerTests\Facades;
 
-use Closure;
 use Guanguans\LaravelProxyManager\Facades\LazyLoadingValueHolderFactory;
 use Guanguans\LaravelProxyManagerTests\TestClasses\LazyLoadingValueHolderTestClass;
 use Guanguans\LaravelProxyManagerTests\TestClasses\ValueHolderTestClass;
@@ -20,7 +19,7 @@ use SebastianBergmann\Timer\Timer;
 it('will return `LazyLoadingValueHolder` proxy', function (): void {
     $proxy = LazyLoadingValueHolderFactory::createProxy(
         ValueHolderTestClass::class,
-        function (?object &$wrappedObject, ?VirtualProxyInterface $virtualProxy, string $method, array $parameters, ?Closure &$initializer): bool {
+        function (?object &$wrappedObject, ?VirtualProxyInterface $virtualProxy, string $method, array $parameters, ?\Closure &$initializer): bool {
             $initializer = null;
             $wrappedObject = new ValueHolderTestClass();
 
@@ -42,7 +41,7 @@ it('will actually initialized when the proxy class calls the method', function (
     $sleepMicroseconds = 100000;
     $proxy = LazyLoadingValueHolderFactory::createProxy(
         LazyLoadingValueHolderTestClass::class,
-        function (?object &$wrappedObject, ?VirtualProxyInterface $virtualProxy, string $method, array $parameters, ?Closure &$initializer) use ($sleepMicroseconds): bool {
+        function (?object &$wrappedObject, ?VirtualProxyInterface $virtualProxy, string $method, array $parameters, ?\Closure &$initializer) use ($sleepMicroseconds): bool {
             $initializer = null;
             $wrappedObject = new LazyLoadingValueHolderTestClass($sleepMicroseconds);
 

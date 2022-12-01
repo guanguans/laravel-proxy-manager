@@ -23,7 +23,6 @@ use ProxyManager\Factory\LazyLoadingValueHolderFactory;
 use ProxyManager\Factory\NullObjectFactory;
 use ProxyManager\FileLocator\FileLocator;
 use ProxyManager\FileLocator\FileLocatorInterface;
-use RuntimeException;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -48,7 +47,7 @@ class ProxyManagerServiceProvider extends PackageServiceProvider
                 && ! mkdir($proxiesDirectory, config('proxy-manager.generated_proxies_dir_mode'), true)
                 && ! is_dir($proxiesDirectory)
             ) {
-                throw new RuntimeException(sprintf('Directory "%s" was not created', $proxiesDirectory));
+                throw new \RuntimeException(sprintf('Directory "%s" was not created', $proxiesDirectory));
             }
 
             return new FileLocator($proxiesDirectory);

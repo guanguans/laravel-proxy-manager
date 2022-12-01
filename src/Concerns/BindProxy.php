@@ -10,29 +10,27 @@
 
 namespace Guanguans\LaravelProxyManager\Concerns;
 
-use Closure;
-use InvalidArgumentException;
 use ProxyManager\Factory\RemoteObject\AdapterInterface;
 use ProxyManager\Proxy\VirtualProxyInterface;
 
 trait BindProxy
 {
-    public function singletonLazyLoadingValueHolderProxy(string $className, ?Closure $concrete = null): void
+    public function singletonLazyLoadingValueHolderProxy(string $className, ?\Closure $concrete = null): void
     {
         $this->bindLazyLoadingValueHolderProxy($className, $concrete);
     }
 
-    public function bindLazyLoadingValueHolderProxy(string $className, ?Closure $concrete = null, bool $shared = false): void
+    public function bindLazyLoadingValueHolderProxy(string $className, ?\Closure $concrete = null, bool $shared = false): void
     {
         if (! class_exists($className)) {
-            throw new InvalidArgumentException("Target class [$className] does not exist.");
+            throw new \InvalidArgumentException("Target class [$className] does not exist.");
         }
 
         if (is_null($concrete)) {
             $concrete = fn ($container, $parameters = []) => $this->container->build($className);
         }
 
-        $initializer = function (?object &$wrappedObject, VirtualProxyInterface $virtualProxy, string $method, array $parameters, ?Closure &$initializer) use ($concrete): bool {
+        $initializer = function (?object &$wrappedObject, VirtualProxyInterface $virtualProxy, string $method, array $parameters, ?\Closure &$initializer) use ($concrete): bool {
             $initializer = null;
             $wrappedObject = $concrete($this->container, []);
 
@@ -54,7 +52,7 @@ trait BindProxy
     public function bindNullObjectProxy(string $className, bool $shared = false): void
     {
         if (! class_exists($className)) {
-            throw new InvalidArgumentException("Target class [$className] does not exist.");
+            throw new \InvalidArgumentException("Target class [$className] does not exist.");
         }
 
         $this->container->bind(
@@ -72,7 +70,7 @@ trait BindProxy
     public function bindRemoteObjectProxy(string $className, ?AdapterInterface $adapter = null, bool $shared = false): void
     {
         if (! class_exists($className)) {
-            throw new InvalidArgumentException("Target class [$className] does not exist.");
+            throw new \InvalidArgumentException("Target class [$className] does not exist.");
         }
 
         $this->container->bind(

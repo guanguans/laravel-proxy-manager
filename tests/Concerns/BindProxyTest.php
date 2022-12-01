@@ -16,14 +16,13 @@ use Guanguans\LaravelProxyManagerTests\TestClasses\NullObjectTestClass;
 use Guanguans\LaravelProxyManagerTests\TestClasses\RemoteNullObjectAdapterTestClass;
 use Guanguans\LaravelProxyManagerTests\TestClasses\ValueHolderTestClass;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use InvalidArgumentException;
 use ProxyManager\Proxy\NullObjectInterface;
 use ProxyManager\Proxy\RemoteObjectInterface;
 use ProxyManager\Proxy\VirtualProxyInterface;
 
 it('will throw `Target class [unkown] does not exist.` for `bindLazyLoadingValueHolderProxy`', function (): void {
     app(ProxyManager::class)->bindLazyLoadingValueHolderProxy('unkown');
-})->throws(InvalidArgumentException::class, 'Target class [unkown] does not exist.');
+})->throws(\InvalidArgumentException::class, 'Target class [unkown] does not exist.');
 
 it('will throw `Target [Guanguans\LaravelProxyManagerTests\Unkown] is not instantiable. InvalidArgumentExceptio` for `bindLazyLoadingValueHolderProxy`', function (): void {
     abstract class Unkown
@@ -62,7 +61,7 @@ it('will not return for `singletonLazyLoadingValueHolderProxy`', function (): vo
 
 it('will throw `Target class [unkown] does not exist.` for `bindNullObjectProxy`', function (): void {
     app(ProxyManager::class)->bindNullObjectProxy('unkown');
-})->throws(InvalidArgumentException::class, 'Target class [unkown] does not exist.');
+})->throws(\InvalidArgumentException::class, 'Target class [unkown] does not exist.');
 
 it('will not return for `bindNullObjectProxy`', function (): void {
     expect(app(ProxyManager::class))
@@ -84,7 +83,7 @@ it('will not return for `singletonNullObjectProxy`', function (): void {
 
 it('will throw `Target class [unkown] does not exist.` for `bindRemoteObjectProxy`', function (): void {
     app(ProxyManager::class)->bindRemoteObjectProxy('unkown');
-})->throws(InvalidArgumentException::class, 'Target class [unkown] does not exist.');
+})->throws(\InvalidArgumentException::class, 'Target class [unkown] does not exist.');
 
 it('will not return for `bindRemoteObjectProxy`', function (): void {
     expect(app(ProxyManager::class))

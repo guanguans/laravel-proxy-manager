@@ -12,7 +12,6 @@ namespace Guanguans\LaravelProxyManagerTests;
 
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 use Guanguans\LaravelProxyManager\ProxyManagerServiceProvider;
-use Mockery;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -50,7 +49,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
     protected function tearDown(): void
     {
         $this->finish();
-        Mockery::close();
+        \Mockery::close();
     }
 
     /**

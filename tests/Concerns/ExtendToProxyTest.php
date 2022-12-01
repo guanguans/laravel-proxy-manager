@@ -10,7 +10,6 @@
 
 namespace Guanguans\LaravelProxyManagerTests\Concerns;
 
-use Closure;
 use Guanguans\LaravelProxyManager\ProxyManager;
 use Guanguans\LaravelProxyManagerTests\TestClasses\AccessInterceptorScopeLocalizerTestClass;
 use Guanguans\LaravelProxyManagerTests\TestClasses\AccessInterceptorValueHolderTestClass;
@@ -24,7 +23,6 @@ use ProxyManager\Proxy\AccessInterceptorValueHolderInterface;
 use ProxyManager\Proxy\GhostObjectInterface;
 use ProxyManager\Proxy\RemoteObjectInterface;
 use ProxyManager\Proxy\ValueHolderInterface;
-use TypeError;
 
 it('will not return for `extendToAccessInterceptorScopeLocalizerProxy`', function (): void {
     expect(app(ProxyManager::class))
@@ -95,7 +93,7 @@ it('will not return for `extendToLazyLoadingValueHolderProxy`', function (): voi
     expect(app(ProxyManager::class))
         ->extendToLazyLoadingValueHolderProxy(
             ValueHolderTestClass::class,
-            function (?object &$wrappedObject, ?object $proxy, string $method, array $parameters, ?Closure &$initializer) {
+            function (?object &$wrappedObject, ?object $proxy, string $method, array $parameters, ?\Closure &$initializer) {
                 $initializer = null;
                 $wrappedObject = new ValueHolderTestClass();
 
@@ -117,7 +115,7 @@ it('will not return for `extendToNullObjectProxy`', function (): void {
         ->toBeInstanceOf(NullObjectTestClass::class)
         ->getId()
         ->toBeNull();
-})->throws(TypeError::class);
+})->throws(\TypeError::class);
 
 it('will not return for `extendToRemoteObjectProxy`', function (): void {
     expect(app(ProxyManager::class))

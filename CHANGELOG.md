@@ -2,6 +2,21 @@
 
 All notable changes to `guanguans/laravel-proxy-manager` will be documented in this file.
 
+## v1.1.0 - 2023-03-25
+
+### What's Changed
+
+- Bump actions/stale from 5 to 6 by @dependabot in https://github.com/guanguans/laravel-proxy-manager/pull/4
+- Bump dependabot/fetch-metadata from 1.3.3 to 1.3.4 by @dependabot in https://github.com/guanguans/laravel-proxy-manager/pull/5
+- Bump dependabot/fetch-metadata from 1.3.4 to 1.3.5 by @dependabot in https://github.com/guanguans/laravel-proxy-manager/pull/6
+- Update vimeo/psalm requirement from ^4.16 to ^4.16 || ^5.0 by @dependabot in https://github.com/guanguans/laravel-proxy-manager/pull/7
+- Update rector/rector requirement from ^0.14 to ^0.14 || ^0.15 by @dependabot in https://github.com/guanguans/laravel-proxy-manager/pull/8
+- Bump actions/stale from 6 to 7 by @dependabot in https://github.com/guanguans/laravel-proxy-manager/pull/9
+- Bump dependabot/fetch-metadata from 1.3.5 to 1.3.6 by @dependabot in https://github.com/guanguans/laravel-proxy-manager/pull/10
+- Bump actions/stale from 7 to 8 by @dependabot in https://github.com/guanguans/laravel-proxy-manager/pull/11
+
+**Full Changelog**: https://github.com/guanguans/laravel-proxy-manager/compare/v1.0.12...v1.1.0
+
 ## v1.0.12 - 2022-09-13
 
 ### What's Changed

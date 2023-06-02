@@ -15,12 +15,12 @@ use ProxyManager\Proxy\VirtualProxyInterface;
 
 trait BindProxy
 {
-    public function singletonLazyLoadingValueHolderProxy(string $className, ?\Closure $concrete = null): void
+    public function singletonLazyLoadingValueHolderProxy(string $className, \Closure $concrete = null): void
     {
         $this->bindLazyLoadingValueHolderProxy($className, $concrete);
     }
 
-    public function bindLazyLoadingValueHolderProxy(string $className, ?\Closure $concrete = null, bool $shared = false): void
+    public function bindLazyLoadingValueHolderProxy(string $className, \Closure $concrete = null, bool $shared = false): void
     {
         if (! class_exists($className)) {
             throw new \InvalidArgumentException("Target class [$className] does not exist.");
@@ -62,12 +62,12 @@ trait BindProxy
         );
     }
 
-    public function singletonRemoteObjectProxy(string $className, ?AdapterInterface $adapter = null): void
+    public function singletonRemoteObjectProxy(string $className, AdapterInterface $adapter = null): void
     {
         $this->bindRemoteObjectProxy($className, $adapter, true);
     }
 
-    public function bindRemoteObjectProxy(string $className, ?AdapterInterface $adapter = null, bool $shared = false): void
+    public function bindRemoteObjectProxy(string $className, AdapterInterface $adapter = null, bool $shared = false): void
     {
         if (! class_exists($className)) {
             throw new \InvalidArgumentException("Target class [$className] does not exist.");

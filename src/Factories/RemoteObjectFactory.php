@@ -28,7 +28,7 @@ class RemoteObjectFactory extends AbstractBaseFactory
 
     private RemoteObjectGenerator $generator;
 
-    public function __construct(?AdapterInterface $adapter = null, ?Configuration $configuration = null)
+    public function __construct(AdapterInterface $adapter = null, Configuration $configuration = null)
     {
         parent::__construct($configuration);
 
@@ -53,7 +53,7 @@ class RemoteObjectFactory extends AbstractBaseFactory
      * @psalm-suppress MixedInferredReturnType We ignore type checks here, since `staticProxyConstructor` is not
      *                                         interfaced (by design)
      */
-    public function createProxy($instanceOrClassName, ?AdapterInterface $adapter = null): RemoteObjectInterface
+    public function createProxy($instanceOrClassName, AdapterInterface $adapter = null): RemoteObjectInterface
     {
         $proxyClassName = $this->generateProxy(
             is_object($instanceOrClassName) ? get_class($instanceOrClassName) : $instanceOrClassName

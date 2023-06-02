@@ -55,7 +55,7 @@ trait ExtendToProxy
         );
     }
 
-    public function extendToRemoteObjectProxy(string $abstract, ?AdapterInterface $adapter = null): void
+    public function extendToRemoteObjectProxy(string $abstract, AdapterInterface $adapter = null): void
     {
         $this->container->extend(
             $abstract,

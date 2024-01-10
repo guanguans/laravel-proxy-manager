@@ -15,7 +15,7 @@ use ProxyManager\Factory\RemoteObject\AdapterInterface;
 class RemoteBookObjectAdapterTestClass implements AdapterInterface
 {
     /**
-     * @var \Guanguans\LaravelProxyManagerTests\TestClasses\RemoteBookObjectTestClass
+     * @var RemoteBookObjectTestClass
      */
     public $remoteObjectTestClass;
 

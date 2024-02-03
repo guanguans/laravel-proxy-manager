@@ -16,7 +16,7 @@ class LazyLoadingGhostTestClass extends ValueHolderTestClass
 
     private ?string $name = null;
 
-    public function __construct(int $id = null, string $name = null)
+    public function __construct(?int $id = null, ?string $name = null)
     {
         $this->id = $id;
         $this->name = $name;

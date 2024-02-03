@@ -233,7 +233,7 @@ trait CreateProxy
      * @psalm-suppress MixedInferredReturnType We ignore type checks here, since `staticProxyConstructor` is not
      *                                         interfaced (by design)
      */
-    public function createRemoteObjectProxy($instanceOrClassName, AdapterInterface $adapter = null): RemoteObjectInterface
+    public function createRemoteObjectProxy($instanceOrClassName, ?AdapterInterface $adapter = null): RemoteObjectInterface
     {
         return RemoteObjectFactory::createProxy($instanceOrClassName, $adapter);
     }

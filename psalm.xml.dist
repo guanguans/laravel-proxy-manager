@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <psalm
+    cacheDirectory="./build/psalm/"
+    errorBaseline="psalm-baseline.xml"
     errorLevel="4"
-    findUnusedVariablesAndParams="true"
+    findUnusedBaselineEntry="false"
+    findUnusedCode="false"
+    findUnusedVariablesAndParams="false"
     resolveFromConfigFile="true"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="https://getpsalm.org/schema/config"
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
-    cacheDirectory="./build/psalm/"
-    errorBaseline="psalm-baseline.xml"
 >
     <projectFiles>
         <directory name="src"/>

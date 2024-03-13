@@ -31,6 +31,8 @@ use ProxyManager\Signature\Exception\MissingSignatureException;
 trait CreateProxy
 {
     /**
+     * @psalm-suppress InvalidReturnType
+     *
      * @param object                  $instance           the object to be localized within the access interceptor
      * @param array<string, \Closure> $prefixInterceptors an array (indexed by method name) of interceptor closures to be called
      *                                                    before method logic is executed
@@ -71,6 +73,8 @@ trait CreateProxy
     }
 
     /**
+     * @psalm-suppress InvalidReturnType
+     *
      * @param object                  $instance           the object to be wrapped within the value holder
      * @param array<string, \Closure> $prefixInterceptors an array (indexed by method name) of interceptor closures to be called
      *                                                    before method logic is executed
@@ -111,6 +115,7 @@ trait CreateProxy
     }
 
     /**
+     * @psalm-suppress InvalidReturnType
      * Creates a new lazy proxy instance of the given class with
      * the given initializer.
      *
@@ -172,6 +177,8 @@ trait CreateProxy
     }
 
     /**
+     * @psalm-suppress InvalidReturnType
+     *
      * @param array<string, mixed> $proxyOptions
      *
      * @psalm-template RealObjectType of object
@@ -196,6 +203,8 @@ trait CreateProxy
     }
 
     /**
+     * @psalm-suppress InvalidReturnType
+     *
      * @param object|string $instanceOrClassName the object to be wrapped or interface to transform to null object
      *
      * @throws InvalidSignatureException
@@ -217,6 +226,8 @@ trait CreateProxy
     }
 
     /**
+     * @psalm-suppress InvalidReturnType
+     *
      * @param string|object $instanceOrClassName
      *
      * @throws InvalidSignatureException

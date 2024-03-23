@@ -75,10 +75,10 @@ class ProxyManagerServiceProvider extends PackageServiceProvider
     {
         if (class_exists(AboutCommand::class)) {
             AboutCommand::add('Laravel Proxy Manager', [
-                    'Author' => 'guanguans',
-                    'Homepage' => 'https://github.com/guanguans/laravel-proxy-manager',
-                    'License' => 'MIT',
-                ]
+                'Author' => 'guanguans',
+                'Homepage' => 'https://github.com/guanguans/laravel-proxy-manager',
+                'License' => 'MIT',
+            ]
             );
         }
     }

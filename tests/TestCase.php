@@ -61,7 +61,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
     }
 
     /**
-     * @return array<class-string<\Guanguans\LaravelProxyManager\ProxyManagerServiceProvider>>
+     * @return array<class-string<ProxyManagerServiceProvider>>
      */
     protected function getPackageProviders($app): array
     {

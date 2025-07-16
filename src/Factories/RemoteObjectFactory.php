@@ -39,16 +39,16 @@ class RemoteObjectFactory extends AbstractBaseFactory
     /**
      * @param string|object $instanceOrClassName
      *
-     * @throws InvalidSignatureException
-     * @throws MissingSignatureException
-     * @throws \OutOfBoundsException
-     * @throws \RuntimeException
-     *
      * @psalm-template RealObjectType of object
      *
      * @psalm-param RealObjectType|class-string<RealObjectType> $instanceOrClassName
      *
      * @psalm-return RealObjectType&RemoteObjectInterface
+     *
+     * @throws InvalidSignatureException
+     * @throws MissingSignatureException
+     * @throws \OutOfBoundsException
+     * @throws \RuntimeException
      *
      * @psalm-suppress MixedInferredReturnType We ignore type checks here, since `staticProxyConstructor` is not
      *                                         interfaced (by design)

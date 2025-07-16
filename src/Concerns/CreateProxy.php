@@ -39,10 +39,6 @@ trait CreateProxy
      * @param array<string, \Closure> $suffixInterceptors an array (indexed by method name) of interceptor closures to be called
      *                                                    after method logic is executed
      *
-     * @throws InvalidSignatureException
-     * @throws MissingSignatureException
-     * @throws \OutOfBoundsException
-     *
      * @psalm-template RealObjectType of object
      *
      * @psalm-param RealObjectType $instance
@@ -64,6 +60,10 @@ trait CreateProxy
      *
      * @psalm-return RealObjectType&AccessInterceptorInterface<RealObjectType>
      *
+     * @throws InvalidSignatureException
+     * @throws MissingSignatureException
+     * @throws \OutOfBoundsException
+     *
      * @psalm-suppress MixedInferredReturnType We ignore type checks here, since `staticProxyConstructor` is not
      *                                         interfaced (by design)
      */
@@ -80,10 +80,6 @@ trait CreateProxy
      *                                                    before method logic is executed
      * @param array<string, \Closure> $suffixInterceptors an array (indexed by method name) of interceptor closures to be called
      *                                                    after method logic is executed
-     *
-     * @throws InvalidSignatureException
-     * @throws MissingSignatureException
-     * @throws \OutOfBoundsException
      *
      * @psalm-template RealObjectType of object
      *
@@ -105,6 +101,10 @@ trait CreateProxy
      * ) : mixed> $suffixInterceptors
      *
      * @psalm-return RealObjectType&AccessInterceptorInterface<RealObjectType>&ValueHolderInterface<RealObjectType>&AccessInterceptorValueHolderInterface<RealObjectType>
+     *
+     * @throws InvalidSignatureException
+     * @throws MissingSignatureException
+     * @throws \OutOfBoundsException
      *
      * @psalm-suppress MixedInferredReturnType We ignore type checks here, since `staticProxyConstructor` is not
      *                                         interfaced (by design)
@@ -150,10 +150,6 @@ trait CreateProxy
      *                              "skippedProperties" is a string[], containing a list of properties referenced
      *                              via PHP's internal property name (i.e. "\0ClassName\0propertyName")
      *
-     * @throws MissingSignatureException
-     * @throws InvalidSignatureException
-     * @throws \OutOfBoundsException
-     *
      * @psalm-template RealObjectType as object
      *
      * @psalm-param class-string<RealObjectType> $className
@@ -167,6 +163,10 @@ trait CreateProxy
      * @psalm-param array{skippedProperties?: array<int, string>} $proxyOptions
      *
      * @psalm-return RealObjectType&GhostObjectInterface<RealObjectType>
+     *
+     * @throws MissingSignatureException
+     * @throws InvalidSignatureException
+     * @throws \OutOfBoundsException
      *
      * @psalm-suppress MixedInferredReturnType We ignore type checks here, since `staticProxyConstructor` is not
      *                                         interfaced (by design)
@@ -207,15 +207,15 @@ trait CreateProxy
      *
      * @param object|string $instanceOrClassName the object to be wrapped or interface to transform to null object
      *
-     * @throws InvalidSignatureException
-     * @throws MissingSignatureException
-     * @throws \OutOfBoundsException
-     *
      * @psalm-template RealObjectType of object
      *
      * @psalm-param RealObjectType|class-string<RealObjectType> $instanceOrClassName
      *
      * @psalm-return RealObjectType&NullObjectInterface
+     *
+     * @throws InvalidSignatureException
+     * @throws MissingSignatureException
+     * @throws \OutOfBoundsException
      *
      * @psalm-suppress MixedInferredReturnType We ignore type checks here, since `staticProxyConstructor` is not
      *                                         interfaced (by design)
@@ -230,16 +230,16 @@ trait CreateProxy
      *
      * @param string|object $instanceOrClassName
      *
-     * @throws InvalidSignatureException
-     * @throws MissingSignatureException
-     * @throws \OutOfBoundsException
-     * @throws \RuntimeException
-     *
      * @psalm-template RealObjectType of object
      *
      * @psalm-param RealObjectType|class-string<RealObjectType> $instanceOrClassName
      *
      * @psalm-return RealObjectType&RemoteObjectInterface
+     *
+     * @throws InvalidSignatureException
+     * @throws MissingSignatureException
+     * @throws \OutOfBoundsException
+     * @throws \RuntimeException
      *
      * @psalm-suppress MixedInferredReturnType We ignore type checks here, since `staticProxyConstructor` is not
      *                                         interfaced (by design)
